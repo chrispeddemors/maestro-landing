@@ -87,7 +87,7 @@ body::after { content: none; }
 
 /* Responsive tuning for full-bleed Lottie backgrounds */
 .compose-bg { transform: scale(2.8) translate(-12%, -3%); transform-origin: center; will-change: transform; }
-@media (max-width: 768px) { .compose-bg { transform: scale(4.0) translate(-30%, -12%); } }
-@media (max-width: 480px) { .compose-bg { transform: scale(4.7) translate(-36%, -14%); } }
+@media (max-width: 768px) { .compose-bg { transform: scale(4.0) translate(-12%, -4%); } }
+@media (max-width: 480px) { .compose-bg { transform: scale(4.7) translate(-14%, -6%); } }
 
 .orchestrate-bg { transform: scale(2.4) translate(-8%, -3%); transform-origin: center; will-change: transform; }
