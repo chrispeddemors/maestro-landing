@@ -2,18 +2,29 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Maestro AI Solutions — Coming Soon",
-  description: "Agentic AI, orchestrated by the Maestro. We’re launching soon.",
+  title: "Maestro AI — Compose · Orchestrate · Automate",
+  description: "We design, orchestrate, and automate intelligent AI solutions.",
   metadataBase: new URL("https://maestro-ai.nl"),
   openGraph: {
-    title: "Maestro AI Solutions — Coming Soon",
-    description: "Agentic AI, orchestrated by the Maestro.",
+    title: "Maestro AI — Compose · Orchestrate · Automate",
+    description: "We design, orchestrate, and automate intelligent AI solutions.",
     url: "https://maestro-ai.nl",
-    siteName: "Maestro AI Solutions",
+    siteName: "Maestro AI",
     images: [
-      { url: "/opengraph-image", width: 1200, height: 630, alt: "Maestro AI Solutions" },
+      {
+        url: "https://maestro-ai.nl/og-maestro-v2.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Maestro AI — Compose · Orchestrate · Automate",
+      },
     ],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://maestro-ai.nl/og-maestro-v2.jpg"],
+    title: "Maestro AI — Compose · Orchestrate · Automate",
+    description: "We design, orchestrate, and automate intelligent AI solutions.",
   },
   other: {
     "color-scheme": "dark",
