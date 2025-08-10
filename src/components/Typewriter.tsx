@@ -57,8 +57,7 @@ export default function Typewriter({
     // Ellipsis state
     const ellipsisIntervalMs = ellipsisIntervalMsProp;
     let ellipsisLastTick = 0;
-    let ellipsisCount = 0; // 0..3
-    let ellipsisDir: 1 | -1 = 1; // grow then shrink: . .. ... .. .
+    let ellipsisCount = 0; // 0..3 (0 = blank)
 
     const step = (ts: number) => {
       const dt = Math.min(0.066, (ts - lastTs) / 1000);
@@ -79,8 +78,7 @@ export default function Typewriter({
             holdUntil = ts + holdMs;
             carry = 0;
             ellipsisLastTick = ts;
-            ellipsisCount = 1;
-            ellipsisDir = 1;
+            ellipsisCount = 1; // start bij één punt
             if (dots && ellipsis) dots.textContent = ".";
             else if (dots) dots.textContent = "";
           } else if (dots) {
@@ -88,18 +86,11 @@ export default function Typewriter({
           }
         }
       } else if (phase === "hold") {
-        // animate ellipsis
+        // animate ellipsis: . -> .. -> ... -> (blank) -> . -> .. -> ...
         if (dots && ellipsis && ts - ellipsisLastTick >= ellipsisIntervalMs) {
           ellipsisLastTick = ts;
-          ellipsisCount += ellipsisDir;
-          if (ellipsisCount >= 3) {
-            ellipsisCount = 3;
-            ellipsisDir = -1;
-          } else if (ellipsisCount <= 1) {
-            ellipsisCount = 1;
-            ellipsisDir = 1;
-          }
-          dots.textContent = ".".repeat(ellipsisCount);
+          ellipsisCount = (ellipsisCount + 1) % 4; // 0..3 cyclisch
+          dots.textContent = ellipsisCount === 0 ? "" : ".".repeat(ellipsisCount);
         }
         if (ts >= holdUntil) {
           if (!loop) {

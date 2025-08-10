@@ -5,7 +5,7 @@ test("hero, typewriters en scroll secties renderen", async ({ page }) => {
 
   // Hero
   await expect(page.getByText("Maestro AI").first()).toBeVisible();
-  await expect(page.getByText("Compose · Orchestrate · Automate").first()).toBeVisible();
+  await expect(page.getByText("Orchestrating Agentic AI Solutions").first()).toBeVisible();
 
   // Compose typewriter
   await expect(page.getByText("Compose...").first()).toBeVisible();

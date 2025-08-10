@@ -75,7 +75,7 @@ export default function Home() {
                 {/* Reservering om layout shift te voorkomen tijdens wegvegen */}
                 <div className="mt-2 min-h-[1.4em] leading-tight">
                   <Typewriter
-                    text="Compose · Orchestrate · Automate"
+                    text="Orchestrating Agentic AI Solutions"
                     className="text-[clamp(16px,2.8vw,26px)] font-medium text-white/85"
                     ellipsis={true}
                     typeRate={14}
