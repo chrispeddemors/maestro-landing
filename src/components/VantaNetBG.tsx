@@ -184,12 +184,14 @@ export default function VantaNetBG() {
   }
 
   return (
-    <div
-      ref={containerRef}
-      onMouseEnter={() => bump(true)}
-      onMouseLeave={() => bump(false)}
-      className="fixed inset-0 -z-10"
-      style={{ filter: "blur(12px)", transform: "translateZ(0)" }}
-    />
+    <div className="fixed inset-0 -z-10 overflow-hidden">
+      <div
+        ref={containerRef}
+        onMouseEnter={() => bump(true)}
+        onMouseLeave={() => bump(false)}
+        className="absolute -inset-[14%]"
+        style={{ filter: "blur(12px)", transform: "translateZ(0)", transformOrigin: "center" }}
+      />
+    </div>
   );
 } 
