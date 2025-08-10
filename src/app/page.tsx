@@ -222,7 +222,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Something Intelligent Is In The Making
+              Something Intelligent is in the Making
             </motion.p>
             <motion.div
               className="mt-4 grid place-items-center"
