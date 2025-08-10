@@ -19,7 +19,7 @@ function calcOpts(width: number): NetOpts {
   return { points: 10, spacing: 18, maxDistance: 22, mouseControls: true, touchControls: true };
 }
 
-export default function VantaNetBG() {
+export default function VantaNetBG({ onReady }: { onReady?: () => void } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [vanta, setVanta] = useState<VantaInstance | null>(null);
 
@@ -54,6 +54,7 @@ export default function VantaNetBG() {
       });
 
       setVanta(instance);
+      onReady?.();
       cleanup = () => instance.destroy?.();
 
       const onResize = () => {
@@ -80,7 +81,7 @@ export default function VantaNetBG() {
     })();
 
     return () => cleanup();
-  }, []);
+  }, [onReady]);
 
   // Rotatie loop en gesture-detectie
   useEffect(() => {

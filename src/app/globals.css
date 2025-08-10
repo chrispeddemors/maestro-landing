@@ -91,9 +91,13 @@ body::after { content: none; }
 @media (max-width: 480px) { .compose-bg { transform: scale(4.7) translate(-14%, -6%); } }
 
 .orchestrate-bg { transform: scale(2.4) translate(-8%, -3%); transform-origin: center; will-change: transform; }
+@media (max-width: 768px) { .orchestrate-bg { transform: scale(3.4) translate(-10%, -4%); } }
+@media (max-width: 480px) { .orchestrate-bg { transform: scale(4.2) translate(-12%, -6%); } }
 
 /* Soft blur for section backgrounds */
 .section-bg-blur { filter: blur(4px) saturate(0.98); }
+@media (max-width: 768px) { .section-bg-blur { filter: blur(3px) saturate(1.05); } }
+@media (max-width: 480px) { .section-bg-blur { filter: blur(2.6px) saturate(1.08); } }
 
 /* Occasional subtle color glow overlay for section backgrounds */
 @keyframes bgGlowPulse {

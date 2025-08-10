@@ -6,6 +6,7 @@ import VantaNetBG from "@/components/VantaNetBG";
 import Typewriter from "@/components/Typewriter";
 import ScrollChevron from "@/components/ScrollChevron";
 import HeroSubtitleSequence from "@/components/HeroSubtitleSequence";
+import { useState } from "react";
 import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import orchestrateBg from "@/img/orchestrate-bg.json";
 import composeBg from "@/img/compose-bg.json";
@@ -40,6 +41,7 @@ function LogoGlyph({ className = "" }: { className?: string }) {
 }
 
 export default function Home() {
+  const [bgReady, setBgReady] = useState(false);
   const prefersReduced = useMemo(
     () => typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     []
@@ -60,13 +62,13 @@ export default function Home() {
 
   return (
     <>
-      <VantaNetBG />
+      <VantaNetBG onReady={() => setBgReady(true)} />
       <ScrollChevron />
 
       <main data-snap-container="true" className="relative text-white h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-contain">
         {/* HERO met logo */}
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
-          <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[30%] md:translate-y-0">
+          <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[30%] md:translate-y-0" style={{ opacity: bgReady ? 1 : 0, transition: "opacity 240ms ease-out" }}>
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
               <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
               <div className="text-center md:text-left">
@@ -86,7 +88,7 @@ export default function Home() {
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           {/* Grote Lottie als achtergrond */}
           {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] compose-bg section-bg-blur">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18] md:opacity-[0.16] compose-bg section-bg-blur">
               <Lottie lottieRef={composeRef} animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
               <div
                 className="bg-glow-overlay"
@@ -126,7 +128,7 @@ export default function Home() {
         {/* Section 2: ORCHESTRATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14] orchestrate-bg section-bg-blur">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] md:opacity-[0.14] orchestrate-bg section-bg-blur">
               <Lottie lottieRef={orchestrateRef} animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
               <div
                 className="bg-glow-overlay"
@@ -231,12 +233,14 @@ export default function Home() {
               {/* reserve ruimte om layout shift te voorkomen */}
               <div className="min-h-[1.6em] leading-tight">
                 <Typewriter
-                  text="Coming Soon..."
+                  text="Coming Soon"
                   className="text-[clamp(18px,3.2vw,36px)] font-normal text-[#d1d5db]"
-                  ellipsis={false}
-                  typeRate={11.11}
-                  deleteRate={9999}
-                  holdMs={1000}
+                  ellipsis={true}
+                  ellipsisIncludeBlank={false}
+                  ellipsisIntervalMs={720}
+                  typeRate={14}
+                  deleteRate={27}
+                  holdMs={Infinity}
                   loop={false}
                 />
               </div>
