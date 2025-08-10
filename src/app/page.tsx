@@ -1,10 +1,14 @@
 "use client";
 
-import { } from "react";
+import { useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import VantaNetBG from "@/components/VantaNetBG";
 import Typewriter from "@/components/Typewriter";
 import ScrollChevron from "@/components/ScrollChevron";
+import Lottie, { type LottieRefCurrentProps } from "lottie-react";
+import orchestrateBg from "@/img/orchestrate-bg.json";
+import composeBg from "@/img/compose-bg.json";
+import automateBg from "@/img/automate-bg.json";
 import logo3 from "@/img/3.svg";
 
 function getAssetUrl(mod: unknown): string {
@@ -34,6 +38,17 @@ function LogoGlyph({ className = "" }: { className?: string }) {
 }
 
 export default function Home() {
+  const prefersReduced = useMemo(
+    () => typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    []
+  );
+
+  const automateRef = useRef<LottieRefCurrentProps | null>(null);
+  useEffect(() => {
+    if (prefersReduced) return;
+    automateRef.current?.setSpeed?.(0.5); // 200% trager (halve snelheid)
+  }, [prefersReduced]);
+
   return (
     <>
       <VantaNetBG />
@@ -67,7 +82,13 @@ export default function Home() {
         </section>
 
         {/* Section 1: COMPOSE */}
-        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+        <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
+          {/* Grote Lottie als achtergrond */}
+          {!prefersReduced && (
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16]" style={{ transform: "scale(1.4) translate(-6%, -2%)", transformOrigin: "center", willChange: "transform" }}>
+              <Lottie animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
+            </div>
+          )}
           <div className="max-w-5xl text-center">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Compose</motion.h2>
             <motion.p
@@ -83,7 +104,12 @@ export default function Home() {
         </section>
 
         {/* Section 2: ORCHESTRATE */}
-        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+        <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
+          {!prefersReduced && (
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14]" style={{ transform: "scale(1.6) translate(-8%, -3%)", transformOrigin: "center", willChange: "transform" }}>
+              <Lottie animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
+            </div>
+          )}
           <div className="max-w-5xl text-center">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Orchestrate</motion.h2>
             <motion.p
@@ -99,7 +125,12 @@ export default function Home() {
         </section>
 
         {/* Section 3: AUTOMATE */}
-        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+        <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
+          {!prefersReduced && (
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14]" style={{ transform: "scale(1.5) translate(-10%, -2%)", transformOrigin: "center", willChange: "transform" }}>
+              <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop autoplay className="w-full h-full" />
+            </div>
+          )}
           <div className="max-w-5xl text-center">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Automate</motion.h2>
             <motion.p

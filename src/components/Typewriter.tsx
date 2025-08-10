@@ -146,10 +146,15 @@ export default function Typewriter({
   }, [prefersReduced, text, ellipsis, typeRateProp, deleteRateProp, holdMsProp, ellipsisIntervalMsProp, loop]);
 
   return (
-    <h1 className={className} aria-label={text}>
+    <h1 className={className} aria-label={text} style={{ position: "relative", display: "inline-block" }}>
       <span className="sr-only">{text}</span>
-      <span ref={textRef} />
-      {ellipsis ? <span ref={dotsRef} aria-hidden /> : <span className="tw-cursor" aria-hidden />}
+      {/* Invisible placeholder reserves size to prevent layout shift */}
+      <span aria-hidden className="opacity-0 select-none pointer-events-none">{text}</span>
+      {/* Overlay actual typing on top of the placeholder */}
+      <span aria-hidden style={{ position: "absolute", inset: 0, whiteSpace: "nowrap" }}>
+        <span ref={textRef} />
+        {ellipsis ? <span ref={dotsRef} /> : <span className="tw-cursor" />}
+      </span>
     </h1>
   );
 } 
