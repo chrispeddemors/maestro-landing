@@ -89,6 +89,7 @@ export default function VantaNetBG() {
 
     let lastTs = performance.now();
     const baseSpeedDegPerSec = 0.045; // subtiel sneller: ~2.7° per minuut
+    const scale = 1.12; // licht ingezoomd om randgloed te voorkomen bij rotatie
 
     const step = (ts: number) => {
       const dt = Math.min(0.066, (ts - lastTs) / 1000);
@@ -99,7 +100,7 @@ export default function VantaNetBG() {
       if (angleDegRef.current > 360) angleDegRef.current -= 360;
       if (angleDegRef.current < -360) angleDegRef.current += 360;
 
-      el.style.transform = `translateZ(0) rotate(${angleDegRef.current}deg)`;
+      el.style.transform = `translateZ(0) scale(${scale}) rotate(${angleDegRef.current}deg)`;
       rafRotateRef.current = requestAnimationFrame(step);
     };
 
