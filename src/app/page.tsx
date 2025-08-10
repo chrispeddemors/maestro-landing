@@ -65,7 +65,7 @@ export default function Home() {
       <main data-snap-container="true" className="relative text-white h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-contain">
         {/* HERO met logo */}
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
-          <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[30%] md:translate-y-0">
+          <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[40%] md:translate-y-0">
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
               <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
               <div className="text-center md:text-left">
@@ -97,7 +97,7 @@ export default function Home() {
               <Lottie lottieRef={composeRef} animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
+          <div className="max-w-5xl text-center -translate-y-[40%] md:translate-y-0">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Compose</motion.h2>
             <motion.p
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
@@ -118,7 +118,7 @@ export default function Home() {
               <Lottie lottieRef={orchestrateRef} animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
+          <div className="max-w-5xl text-center -translate-y-[40%] md:translate-y-0">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Orchestrate</motion.h2>
             <motion.p
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
@@ -139,7 +139,7 @@ export default function Home() {
               <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop autoplay className="w-full h-full" />
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
+          <div className="max-w-5xl text-center -translate-y-[40%] md:translate-y-0">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Automate</motion.h2>
             <motion.p
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
@@ -155,7 +155,7 @@ export default function Home() {
 
         {/* Footer: twee regels, boven bold, onder typewriter zonder loop */}
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
-          <div className="w-full max-w-4xl text-center -translate-y-[30%] md:translate-y-0">
+          <div className="w-full max-w-4xl text-center -translate-y-[40%] md:translate-y-0">
             <motion.p
               className="text-[clamp(28px,4.6vw,64px)] font-semibold tracking-[0.6px] text-[#f5f5f5]"
               initial={{ opacity: 0, y: 6 }}
