@@ -2,23 +2,44 @@
 
 import { useEffect, useMemo, useRef } from "react";
 
-type TypewriterProps = { text: string; className?: string };
+type TypewriterProps = {
+  text: string;
+  className?: string;
+  ellipsis?: boolean;
+  typeRate?: number; // chars per second
+  deleteRate?: number; // chars per second
+  holdMs?: number; // how long to hold the full text before deleting
+  ellipsisIntervalMs?: number; // step speed for ellipsis
+  loop?: boolean; // whether to loop type/delete cycles
+};
 
-export default function Typewriter({ text, className }: TypewriterProps) {
+export default function Typewriter({
+  text,
+  className,
+  ellipsis = true,
+  typeRate: typeRateProp = 14,
+  deleteRate: deleteRateProp = 18,
+  holdMs: holdMsProp = 10000,
+  ellipsisIntervalMs: ellipsisIntervalMsProp = 360,
+  loop = true,
+}: TypewriterProps) {
   const prefersReduced = useMemo(
     () => typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     []
   );
 
-  const nodeRef = useRef<HTMLSpanElement | null>(null);
+  const textRef = useRef<HTMLSpanElement | null>(null);
+  const dotsRef = useRef<HTMLSpanElement | null>(null);
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const node = nodeRef.current;
+    const node = textRef.current;
+    const dots = dotsRef.current;
     if (!node) return;
 
     if (prefersReduced) {
       node.textContent = text;
+      if (dots) dots.textContent = "";
       return;
     }
 
@@ -26,20 +47,26 @@ export default function Typewriter({ text, className }: TypewriterProps) {
     let phase: "typing" | "hold" | "deleting" = "typing";
     let charCount = 0;
     let holdUntil = 0;
-    // snelheden in tekens per seconde
-    const typeRate = 14; // vloeiend maar rustig
-    const deleteRate = 18;
-    const holdMs = 10000; // 10s vasthouden
-    const idleGapMs = 350; // korte pauze voor herstart
-    let carry = 0; // fracties tillen we door naar de volgende frame
+
+    const typeRate = typeRateProp;
+    const deleteRate = deleteRateProp;
+    const holdMs = holdMsProp;
+    const idleGapMs = 350; // small pause before restart
+    let carry = 0; // fractional char progress carried between frames
+
+    // Ellipsis state
+    const ellipsisIntervalMs = ellipsisIntervalMsProp;
+    let ellipsisLastTick = 0;
+    let ellipsisCount = 0; // 0..3
+    let ellipsisDir: 1 | -1 = 1; // grow then shrink: . .. ... .. .
 
     const step = (ts: number) => {
-      const dt = Math.min(0.066, (ts - lastTs) / 1000); // cap op ~15fps om sprongen te voorkomen
+      const dt = Math.min(0.066, (ts - lastTs) / 1000);
       lastTs = ts;
 
       if (phase === "typing") {
         carry += typeRate * dt;
-        const inc = carry | 0; // floor
+        const inc = carry | 0;
         if (inc > 0) {
           carry -= inc;
           const next = Math.min(text.length, charCount + inc);
@@ -51,10 +78,34 @@ export default function Typewriter({ text, className }: TypewriterProps) {
             phase = "hold";
             holdUntil = ts + holdMs;
             carry = 0;
+            ellipsisLastTick = ts;
+            ellipsisCount = 1;
+            ellipsisDir = 1;
+            if (dots && ellipsis) dots.textContent = ".";
+            else if (dots) dots.textContent = "";
+          } else if (dots) {
+            dots.textContent = "";
           }
         }
       } else if (phase === "hold") {
+        // animate ellipsis
+        if (dots && ellipsis && ts - ellipsisLastTick >= ellipsisIntervalMs) {
+          ellipsisLastTick = ts;
+          ellipsisCount += ellipsisDir;
+          if (ellipsisCount >= 3) {
+            ellipsisCount = 3;
+            ellipsisDir = -1;
+          } else if (ellipsisCount <= 1) {
+            ellipsisCount = 1;
+            ellipsisDir = 1;
+          }
+          dots.textContent = ".".repeat(ellipsisCount);
+        }
         if (ts >= holdUntil) {
+          if (!loop) {
+            // stop animation, keep final state
+            return;
+          }
           phase = "deleting";
           carry = 0;
         }
@@ -69,11 +120,12 @@ export default function Typewriter({ text, className }: TypewriterProps) {
             charCount = next;
             node.textContent = text.slice(0, charCount);
           }
+          if (dots) dots.textContent = "";
           if (charCount === 0) {
-            // kleine idle, daarna opnieuw typen
+            // small idle, then restart typing
             phase = "typing";
             carry = 0;
-            lastTs = ts + idleGapMs; // verschuif virtueel om korte pauze te geven
+            lastTs = ts + idleGapMs;
           }
         }
       }
@@ -82,6 +134,7 @@ export default function Typewriter({ text, className }: TypewriterProps) {
     };
 
     node.textContent = "";
+    if (dots) dots.textContent = "";
     rafRef.current = requestAnimationFrame((ts) => {
       lastTs = ts;
       rafRef.current = requestAnimationFrame(step);
@@ -90,13 +143,13 @@ export default function Typewriter({ text, className }: TypewriterProps) {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [prefersReduced, text]);
+  }, [prefersReduced, text, ellipsis, typeRateProp, deleteRateProp, holdMsProp, ellipsisIntervalMsProp, loop]);
 
   return (
     <h1 className={className} aria-label={text}>
       <span className="sr-only">{text}</span>
-      <span ref={nodeRef} />
-      <span className="tw-cursor" aria-hidden />
+      <span ref={textRef} />
+      {ellipsis ? <span ref={dotsRef} aria-hidden /> : <span className="tw-cursor" aria-hidden />}
     </h1>
   );
 } 

@@ -47,11 +47,18 @@ export default function Home() {
                 <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95]">
                   Maestro AI
                 </div>
-                {/* Typewriter op subtitel */}
-                <Typewriter
-                  text="Compose · Orchestrate · Automate"
-                  className="mt-2 text-[clamp(16px,2.8vw,26px)] font-medium text-white/85"
-                />
+                {/* Reservering om layout shift te voorkomen tijdens wegvegen */}
+                <div className="mt-2 min-h-[1.4em] leading-tight">
+                  <Typewriter
+                    text="Compose · Orchestrate · Automate"
+                    className="text-[clamp(16px,2.8vw,26px)] font-medium text-white/85"
+                    ellipsis={true}
+                    typeRate={14}
+                    deleteRate={27}
+                    holdMs={20000}
+                    ellipsisIntervalMs={360}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -105,9 +112,37 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Footer typewriter sectie */}
+        {/* Footer: twee regels, boven bold, onder typewriter zonder loop */}
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
-          <Typewriter text="More to come..." className="text-[clamp(30px,5.4vw,66px)] font-extrabold tracking-tight text-white" />
+          <div className="w-full max-w-4xl text-center">
+            <motion.p
+              className="text-[clamp(28px,4.6vw,64px)] font-semibold tracking-[0.6px] text-[#f5f5f5]"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              Something intelligent is in the making…
+            </motion.p>
+            <motion.div
+              className="mt-4 grid place-items-center"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
+            >
+              {/* reserve ruimte om layout shift te voorkomen */}
+              <div className="min-h-[1.6em] leading-tight">
+                <Typewriter
+                  text="More coming soon..."
+                  className="text-[clamp(18px,3.2vw,36px)] font-normal text-[#d1d5db]"
+                  ellipsis={false}
+                  typeRate={11.11}
+                  deleteRate={9999}
+                  holdMs={1000}
+                  loop={false}
+                />
+              </div>
+            </motion.div>
+          </div>
         </section>
       </main>
     </>
