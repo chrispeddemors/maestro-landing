@@ -90,6 +90,7 @@ export default function VantaNetBG() {
       onMouseEnter={() => bump(true)}
       onMouseLeave={() => bump(false)}
       className="fixed inset-0 -z-10"
+      style={{ filter: "blur(8px)", transform: "translateZ(0)" }}
     />
   );
 } 
