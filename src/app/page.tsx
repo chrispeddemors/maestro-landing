@@ -101,8 +101,16 @@ export default function Home() {
               </div>
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
-            <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Compose</motion.h2>
+          <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
+            <motion.h2
+              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight"
+              initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
+              whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 1.1, ease: "easeOut" }}
+            >
+              Compose
+            </motion.h2>
             <motion.div
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
               initial={{ opacity: 0, y: 8 }}
@@ -141,8 +149,16 @@ export default function Home() {
               </div>
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
-            <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Orchestrate</motion.h2>
+          <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
+            <motion.h2
+              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight"
+              initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
+              whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 1.1, ease: "easeOut" }}
+            >
+              Orchestrate
+            </motion.h2>
             <motion.div
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
               initial={{ opacity: 0, y: 8 }}
@@ -189,8 +205,16 @@ export default function Home() {
               </div>
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
-            <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Automate</motion.h2>
+          <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
+            <motion.h2
+              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight"
+              initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
+              whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
+              viewport={{ once: false, amount: 0.6 }}
+              transition={{ duration: 1.1, ease: "easeOut" }}
+            >
+              Automate
+            </motion.h2>
             <motion.div
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
               initial={{ opacity: 0, y: 8 }}
