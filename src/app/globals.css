@@ -71,6 +71,9 @@ body::after { content: none; }
 }
 .stroke-shimmer { stroke: #a2ffd3; stroke-linecap: round; stroke-width: 2; stroke-dasharray: 6 10; animation: shimmer 2200ms ease-in-out infinite; }
 
+@keyframes chevronFloat { 0% { transform: translateY(0) } 50% { transform: translateY(5px) } 100% { transform: translateY(0) } }
+.animate-chevron-float { animation: chevronFloat 2.2s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .animate-logo-float{ animation: none; }
   .chip-outline{ animation: none; }

@@ -4,6 +4,7 @@ import { } from "react";
 import { motion } from "framer-motion";
 import VantaNetBG from "@/components/VantaNetBG";
 import Typewriter from "@/components/Typewriter";
+import ScrollChevron from "@/components/ScrollChevron";
 import logo3 from "@/img/3.svg";
 
 function getAssetUrl(mod: unknown): string {
@@ -36,8 +37,9 @@ export default function Home() {
   return (
     <>
       <VantaNetBG />
+      <ScrollChevron />
 
-      <main className="relative text-white h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-contain">
+      <main data-snap-container="true" className="relative text-white h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-contain">
         {/* HERO met logo */}
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
           <div className="flex flex-col items-center gap-8 md:gap-10">
@@ -121,7 +123,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Something intelligent is in the making…
+              Something intelligent is in the making.
             </motion.p>
             <motion.div
               className="mt-4 grid place-items-center"
