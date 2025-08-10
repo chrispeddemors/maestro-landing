@@ -44,9 +44,17 @@ export default function Home() {
   );
 
   const automateRef = useRef<LottieRefCurrentProps | null>(null);
+  const composeRef = useRef<LottieRefCurrentProps | null>(null);
+  const orchestrateRef = useRef<LottieRefCurrentProps | null>(null);
+
   useEffect(() => {
     if (prefersReduced) return;
-    automateRef.current?.setSpeed?.(0.5); // 200% trager (halve snelheid)
+    // Automate 200% trager
+    automateRef.current?.setSpeed?.(0.5);
+    // Compose 40% trager => 0.6x
+    composeRef.current?.setSpeed?.(0.6);
+    // Orchestrate 20% trager => 0.8x
+    orchestrateRef.current?.setSpeed?.(0.8);
   }, [prefersReduced]);
 
   return (
@@ -86,7 +94,7 @@ export default function Home() {
           {/* Grote Lottie als achtergrond */}
           {!prefersReduced && (
             <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] compose-bg">
-              <Lottie animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
+              <Lottie lottieRef={composeRef} animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
             </div>
           )}
           <div className="max-w-5xl text-center">
@@ -106,8 +114,8 @@ export default function Home() {
         {/* Section 2: ORCHESTRATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14]" style={{ transform: "scale(1.6) translate(-8%, -3%)", transformOrigin: "center", willChange: "transform" }}>
-              <Lottie animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14] orchestrate-bg">
+              <Lottie lottieRef={orchestrateRef} animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
             </div>
           )}
           <div className="max-w-5xl text-center">
