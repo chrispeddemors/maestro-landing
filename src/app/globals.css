@@ -62,6 +62,16 @@ body::after { content: none; }
 }
 .green-glow { filter: blur(10px); opacity: 0.14; animation: greenGlowPulse 4200ms ease-in-out infinite; }
 
+/* Title green glow pulse (appears after a wait, lasts a few seconds, then off) */
+@keyframes titleGlowPulse {
+  0%, 64% { text-shadow: none; }
+  70% { text-shadow: 0 0 10px rgba(56,242,154,0.22), 0 0 22px rgba(56,242,154,0.14); }
+  82% { text-shadow: 0 0 18px rgba(56,242,154,0.30), 0 0 40px rgba(56,242,154,0.18); }
+  90% { text-shadow: 0 0 12px rgba(56,242,154,0.22), 0 0 24px rgba(56,242,154,0.12); }
+  100% { text-shadow: none; }
+}
+.title-glow { animation: titleGlowPulse var(--title-glow-period, 14s) ease-in-out infinite; }
+
 /* Baton sweep shimmer (used as overlay) */
 @keyframes shimmer {
   0% { stroke-dashoffset: 1000; opacity: 0.0; }
@@ -83,6 +93,7 @@ body::after { content: none; }
   .luxury-breathe { animation: none; }
   .green-glow { animation: none; }
   .stroke-shimmer { animation: none; }
+  .title-glow { animation: none; }
 }
 
 /* Responsive tuning for full-bleed Lottie backgrounds */

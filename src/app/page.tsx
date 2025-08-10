@@ -103,7 +103,7 @@ export default function Home() {
           )}
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
-              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight"
+              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
               initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
               whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
               viewport={{ once: true, amount: 0.6 }}
@@ -151,7 +151,7 @@ export default function Home() {
           )}
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
-              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight"
+              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
               initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
               whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
               viewport={{ once: true, amount: 0.6 }}
@@ -207,7 +207,7 @@ export default function Home() {
           )}
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
-              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight"
+              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
               initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
               whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
               viewport={{ once: false, amount: 0.6 }}
