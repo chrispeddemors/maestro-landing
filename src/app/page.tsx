@@ -34,9 +34,9 @@ export default function Home() {
       <VantaNetBG />
       <main className="grid min-h-screen place-items-center text-white pt-16 md:pt-20">
         <div className="flex flex-col items-center gap-8 md:gap-10">
-          <div className="flex items-center gap-6 md:gap-8">
+          <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
             <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
-            <div className="text-left">
+            <div className="text-center md:text-left">
               <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95]">
                 Maestro AI
               </div>
