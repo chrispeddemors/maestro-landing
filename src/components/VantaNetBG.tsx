@@ -23,6 +23,14 @@ export default function VantaNetBG() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [vanta, setVanta] = useState<VantaInstance | null>(null);
 
+  // Subtiele rotatie: richting bepaald door laatste horizontale swipe/scroll
+  const dirRef = useRef<number>(1); // -1 links, +1 rechts
+  const angleDegRef = useRef<number>(0);
+  const rafRotateRef = useRef<number | null>(null);
+
+  // Reduced motion
+  const prefersReduced = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   useEffect(() => {
     let cleanup = () => {};
     let resizeRaf: number | null = null;
@@ -73,6 +81,63 @@ export default function VantaNetBG() {
 
     return () => cleanup();
   }, []);
+
+  // Rotatie loop en gesture-detectie
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || prefersReduced) return;
+
+    let lastTs = performance.now();
+    const baseSpeedDegPerSec = 0.045; // subtiel sneller: ~2.7° per minuut
+
+    const step = (ts: number) => {
+      const dt = Math.min(0.066, (ts - lastTs) / 1000);
+      lastTs = ts;
+
+      angleDegRef.current += dirRef.current * baseSpeedDegPerSec * dt;
+      // normaliseer voor stabiliteit
+      if (angleDegRef.current > 360) angleDegRef.current -= 360;
+      if (angleDegRef.current < -360) angleDegRef.current += 360;
+
+      el.style.transform = `translateZ(0) rotate(${angleDegRef.current}deg)`;
+      rafRotateRef.current = requestAnimationFrame(step);
+    };
+
+    rafRotateRef.current = requestAnimationFrame(step);
+
+    // Input listeners om richting vast te leggen
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 1) {
+        dirRef.current = e.deltaX > 0 ? 1 : -1;
+      }
+    };
+
+    let touchStartX: number | null = null;
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches && e.touches.length ? e.touches[0].clientX : null;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (touchStartX == null) return;
+      const x = e.touches && e.touches.length ? e.touches[0].clientX : touchStartX;
+      const dx = x - touchStartX;
+      if (Math.abs(dx) > 8) {
+        dirRef.current = dx < 0 ? 1 : -1; // swipe naar links => roteer naar links (positieve richting)
+      }
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("wheel", onWheel as EventListener);
+      window.removeEventListener("touchstart", onTouchStart as EventListener);
+      window.removeEventListener("touchmove", onTouchMove as EventListener);
+      if (rafRotateRef.current) cancelAnimationFrame(rafRotateRef.current);
+      // reset transform
+      el.style.transform = "translateZ(0)";
+    };
+  }, [prefersReduced]);
 
   function bump(intense: boolean) {
     if (!vanta) return;
