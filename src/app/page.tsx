@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 import VantaNetBG from "@/components/VantaNetBG";
 import Typewriter from "@/components/Typewriter";
 import ScrollChevron from "@/components/ScrollChevron";
+import HeroSubtitleSequence from "@/components/HeroSubtitleSequence";
 import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import orchestrateBg from "@/img/orchestrate-bg.json";
 import composeBg from "@/img/compose-bg.json";
 import automateBg from "@/img/automate-bg.json";
 import logo3 from "@/img/3.svg";
+import type { CSSProperties } from "react";
 
 function getAssetUrl(mod: unknown): string {
   return typeof mod === "string" ? mod : (mod as { src?: string })?.src ?? "";
@@ -49,12 +51,11 @@ export default function Home() {
 
   useEffect(() => {
     if (prefersReduced) return;
-    // Automate 200% trager
-    automateRef.current?.setSpeed?.(0.5);
-    // Compose 40% trager => 0.6x
-    composeRef.current?.setSpeed?.(0.6);
-    // Orchestrate 20% trager => 0.8x
-    orchestrateRef.current?.setSpeed?.(0.8);
+    // Apply extra slowdowns: #1 and #2 an additional 50%, #3 an additional 30%
+    // Previous: compose 0.6x, orchestrate 0.8x, automate 0.5x
+    composeRef.current?.setSpeed?.(0.6 * 0.5);      // -> 0.30x
+    orchestrateRef.current?.setSpeed?.(0.8 * 0.5);  // -> 0.40x
+    automateRef.current?.setSpeed?.(0.5 * 0.7);     // -> 0.35x
   }, [prefersReduced]);
 
   return (
@@ -65,7 +66,7 @@ export default function Home() {
       <main data-snap-container="true" className="relative text-white h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-contain">
         {/* HERO met logo */}
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
-          <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[40%] md:translate-y-0">
+          <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[30%] md:translate-y-0">
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
               <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
               <div className="text-center md:text-left">
@@ -74,15 +75,7 @@ export default function Home() {
                 </div>
                 {/* Reservering om layout shift te voorkomen tijdens wegvegen */}
                 <div className="mt-2 min-h-[1.4em] leading-tight">
-                  <Typewriter
-                    text="Orchestrating Agentic AI Solutions"
-                    className="text-[clamp(16px,2.8vw,26px)] font-medium text-white/85"
-                    ellipsis={true}
-                    typeRate={14}
-                    deleteRate={27}
-                    holdMs={20000}
-                    ellipsisIntervalMs={360}
-                  />
+                  <HeroSubtitleSequence className="text-[clamp(16px,2.8vw,26px)] font-medium text-white/85" />
                 </div>
               </div>
             </div>
@@ -93,69 +86,134 @@ export default function Home() {
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           {/* Grote Lottie als achtergrond */}
           {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] compose-bg">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] compose-bg section-bg-blur">
               <Lottie lottieRef={composeRef} animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
+              <div
+                className="bg-glow-overlay"
+                style={{
+                  "--glow-dur": "22s",
+                  "--glow-delay": "3s",
+                } as CSSProperties as unknown as Record<string, string>}
+              >
+                <span />
+              </div>
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[40%] md:translate-y-0">
+          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Compose</motion.h2>
-            <motion.p
+            <motion.div
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              We craft the perfect score of AI agents, workflows, and logic—tailored to your business.
-            </motion.p>
+              <Typewriter
+                text="Define the plan"
+                className="inline"
+                ellipsis={true}
+                ellipsisIncludeBlank={false}
+                ellipsisIntervalMs={720}
+                typeRate={16}
+                deleteRate={27}
+                holdMs={Infinity}
+                loop={false}
+              />
+            </motion.div>
           </div>
         </section>
 
         {/* Section 2: ORCHESTRATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14] orchestrate-bg">
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14] orchestrate-bg section-bg-blur">
               <Lottie lottieRef={orchestrateRef} animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
+              <div
+                className="bg-glow-overlay"
+                style={{
+                  "--glow-dur": "24s",
+                  "--glow-delay": "7s",
+                } as CSSProperties as unknown as Record<string, string>}
+              >
+                <span />
+              </div>
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[40%] md:translate-y-0">
+          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Orchestrate</motion.h2>
-            <motion.p
+            <motion.div
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              We conduct every element in flawless harmony, ensuring each part plays at the right moment.
-            </motion.p>
+              <Typewriter
+                text="Make it all work together"
+                className="inline"
+                ellipsis={true}
+                ellipsisIncludeBlank={false}
+                ellipsisIntervalMs={720}
+                typeRate={16}
+                deleteRate={27}
+                holdMs={Infinity}
+                loop={false}
+              />
+            </motion.div>
           </div>
         </section>
 
         {/* Section 3: AUTOMATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14]" style={{ transform: "scale(1.5) translate(-10%, -2%)", transformOrigin: "center", willChange: "transform" }}>
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.14] section-bg-blur" style={{ transform: "scale(1.5) translate(-10%, -2%)", transformOrigin: "center", willChange: "transform" }}>
               <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop autoplay className="w-full h-full" />
+              <div
+                className="bg-glow-overlay"
+                style={{
+                  "--glow-dur": "26s",
+                  "--glow-delay": "11s",
+                } as CSSProperties as unknown as Record<string, string>}
+              >
+                <span />
+              </div>
+              {/* Fireworks-like multi-colored bulbs */}
+              <div className="automate-fireworks">
+                <span className="dot" style={{ left: "8%", top: "22%", "--fw-delay": "0s", "--fw-dur": "20s", "--x": "0px", "--y": "0px", "--fw-color": "rgba(56,242,154,0.18)" } as unknown as Record<string, string>} />
+                <span className="dot small" style={{ right: "12%", top: "14%", "--fw-delay": "4s", "--fw-dur": "22s", "--x": "-20px", "--y": "10px", "--fw-color": "rgba(59,130,246,0.18)" } as unknown as Record<string, string>} />
+                <span className="dot large" style={{ left: "26%", bottom: "12%", "--fw-delay": "9s", "--fw-dur": "24s", "--x": "15px", "--y": "-10px", "--fw-color": "rgba(244,63,94,0.18)" } as unknown as Record<string, string>} />
+                <span className="dot" style={{ left: "60%", top: "28%", "--fw-delay": "13s", "--fw-dur": "21s", "--x": "-10px", "--y": "-6px", "--fw-color": "rgba(250,204,21,0.18)" } as unknown as Record<string, string>} />
+                <span className="dot small" style={{ right: "26%", bottom: "18%", "--fw-delay": "16s", "--fw-dur": "19s", "--x": "6px", "--y": "-8px", "--fw-color": "rgba(147,51,234,0.18)" } as unknown as Record<string, string>} />
+              </div>
             </div>
           )}
-          <div className="max-w-5xl text-center -translate-y-[40%] md:translate-y-0">
+          <div className="max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Automate</motion.h2>
-            <motion.p
+            <motion.div
               className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              We set the performance on autopilot—delivering results without missing a beat.
-            </motion.p>
+              <Typewriter
+                text="Run it for you, 24/7"
+                className="inline"
+                ellipsis={true}
+                ellipsisIncludeBlank={false}
+                ellipsisIntervalMs={720}
+                typeRate={16}
+                deleteRate={27}
+                holdMs={Infinity}
+                loop={false}
+              />
+            </motion.div>
           </div>
         </section>
 
         {/* Footer: twee regels, boven bold, onder typewriter zonder loop */}
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
-          <div className="w-full max-w-4xl text-center -translate-y-[40%] md:translate-y-0">
+          <div className="w-full max-w-4xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.p
               className="text-[clamp(28px,4.6vw,64px)] font-semibold tracking-[0.6px] text-[#f5f5f5]"
               initial={{ opacity: 0, y: 6 }}

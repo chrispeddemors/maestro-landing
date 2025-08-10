@@ -91,3 +91,83 @@ body::after { content: none; }
 @media (max-width: 480px) { .compose-bg { transform: scale(4.7) translate(-14%, -6%); } }
 
 .orchestrate-bg { transform: scale(2.4) translate(-8%, -3%); transform-origin: center; will-change: transform; }
+
+/* Soft blur for section backgrounds */
+.section-bg-blur { filter: blur(4px) saturate(0.98); }
+
+/* Occasional subtle color glow overlay for section backgrounds */
+@keyframes bgGlowPulse {
+  0%, 92%, 100% { opacity: 0; }
+  94%, 96% { opacity: 0.12; }
+  98% { opacity: 0; }
+}
+.bg-glow-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: transparent;
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+/* Multiple subtle bulbs */
+.bg-glow-overlay::before,
+.bg-glow-overlay::after {
+  content: "";
+  position: absolute;
+  width: 44vmin;
+  height: 44vmin;
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(56,242,154,0.14), rgba(0,0,0,0) 70%);
+  animation: bgGlowPulse var(--glow-dur, 22s) ease-in-out infinite;
+  opacity: 0;
+}
+.bg-glow-overlay::before { left: 10%; top: 20%; animation-delay: calc(var(--glow-delay, 0s) + 0s); }
+.bg-glow-overlay::after  { right: 8%; bottom: 15%; animation-delay: calc(var(--glow-delay, 0s) + 5s); }
+
+/* Add two more bulbs via nested span */
+.bg-glow-overlay > span {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.bg-glow-overlay > span::before,
+.bg-glow-overlay > span::after {
+  content: "";
+  position: absolute;
+  width: 36vmin;
+  height: 36vmin;
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(34,197,94,0.12), rgba(0,0,0,0) 70%);
+  animation: bgGlowPulse var(--glow-dur, 22s) ease-in-out infinite;
+  opacity: 0;
+}
+.bg-glow-overlay > span::before { left: 55%; top: 10%; animation-delay: calc(var(--glow-delay, 0s) + 11s); }
+.bg-glow-overlay > span::after  { left: 20%; bottom: 10%; animation-delay: calc(var(--glow-delay, 0s) + 15s); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-glow-overlay { animation: none; }
+}
+
+/* Automate: multi-colored fireworks dots */
+@keyframes fwPopPulse {
+  0% { transform: translate(var(--x, 0), var(--y, 0)) scale(0.6); opacity: 0; }
+  6% { opacity: 0.22; }
+  28% { transform: translate(var(--x, 0), var(--y, 0)) scale(1.6); opacity: 0; }
+  100% { opacity: 0; }
+}
+.automate-fireworks { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; }
+.automate-fireworks .dot {
+  position: absolute;
+  width: 32vmin; height: 32vmin; border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 50%, var(--fw-color, rgba(255,255,255,0.18)), rgba(0,0,0,0) 68%);
+  opacity: 0; filter: blur(1px);
+  animation: fwPopPulse var(--fw-dur, 18s) ease-out infinite;
+  animation-delay: var(--fw-delay, 0s);
+}
+.automate-fireworks .dot.small { width: 24vmin; height: 24vmin; }
+.automate-fireworks .dot.large { width: 40vmin; height: 40vmin; }
+
+@media (prefers-reduced-motion: reduce) {
+  .automate-fireworks .dot { animation: none; opacity: 0.08; }
+}

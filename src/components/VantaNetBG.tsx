@@ -88,8 +88,8 @@ export default function VantaNetBG() {
     if (!el || prefersReduced) return;
 
     let lastTs = performance.now();
-    const baseSpeedDegPerSec = 0.045; // subtiel sneller: ~2.7° per minuut
-    const scale = 1.12; // licht ingezoomd om randgloed te voorkomen bij rotatie
+    const baseSpeedDegPerSec = 0.045; // subtiel
+    const scale = 1.18; // iets groter om randen te voorkomen
 
     const step = (ts: number) => {
       const dt = Math.min(0.066, (ts - lastTs) / 1000);
@@ -151,12 +151,14 @@ export default function VantaNetBG() {
   }
 
   return (
-    <div
-      ref={containerRef}
-      onMouseEnter={() => bump(true)}
-      onMouseLeave={() => bump(false)}
-      className="fixed inset-0 -z-10"
-      style={{ filter: "blur(12px)", transform: "translateZ(0)" }}
-    />
+    <div className="fixed inset-0 -z-10 overflow-hidden" style={{ backgroundColor: "#000" }}>
+      <div
+        ref={containerRef}
+        onMouseEnter={() => bump(true)}
+        onMouseLeave={() => bump(false)}
+        className="absolute -inset-[14%]"
+        style={{ filter: "blur(12px)", transform: "translateZ(0)", transformOrigin: "center" }}
+      />
+    </div>
   );
 } 

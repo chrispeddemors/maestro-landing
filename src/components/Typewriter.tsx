@@ -10,7 +10,12 @@ type TypewriterProps = {
   deleteRate?: number; // chars per second
   holdMs?: number; // how long to hold the full text before deleting
   ellipsisIntervalMs?: number; // step speed for ellipsis
+  ellipsisIncludeBlank?: boolean; // whether the ellipsis loop includes a blank step
   loop?: boolean; // whether to loop type/delete cycles
+  onHoldComplete?: () => void; // called once after hold finishes when loop is false
+  deleteAfterHold?: boolean; // when true and loop is false, perform delete phase after hold
+  onDeleteComplete?: () => void; // called once after delete finishes when deleteAfterHold
+  idleGapMs?: number; // pause before restarting typing when looping
 };
 
 export default function Typewriter({
@@ -21,7 +26,12 @@ export default function Typewriter({
   deleteRate: deleteRateProp = 18,
   holdMs: holdMsProp = 10000,
   ellipsisIntervalMs: ellipsisIntervalMsProp = 360,
+  ellipsisIncludeBlank = true,
   loop = true,
+  onHoldComplete,
+  deleteAfterHold = false,
+  onDeleteComplete,
+  idleGapMs: idleGapMsProp = 350,
 }: TypewriterProps) {
   const prefersReduced = useMemo(
     () => typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -51,13 +61,13 @@ export default function Typewriter({
     const typeRate = typeRateProp;
     const deleteRate = deleteRateProp;
     const holdMs = holdMsProp;
-    const idleGapMs = 350; // small pause before restart
+    const idleGapMs = idleGapMsProp; // configurable pause before restart
     let carry = 0; // fractional char progress carried between frames
 
     // Ellipsis state
     const ellipsisIntervalMs = ellipsisIntervalMsProp;
     let ellipsisLastTick = 0;
-    let ellipsisCount = 0; // 0..3 (0 = blank)
+    let ellipsisCount = ellipsisIncludeBlank ? 0 : 1; // start blank or with one dot
 
     const step = (ts: number) => {
       const dt = Math.min(0.066, (ts - lastTs) / 1000);
@@ -78,7 +88,7 @@ export default function Typewriter({
             holdUntil = ts + holdMs;
             carry = 0;
             ellipsisLastTick = ts;
-            ellipsisCount = 1; // start bij één punt
+            ellipsisCount = ellipsisIncludeBlank ? 1 : 1; // start met één punt
             if (dots && ellipsis) dots.textContent = ".";
             else if (dots) dots.textContent = "";
           } else if (dots) {
@@ -86,19 +96,34 @@ export default function Typewriter({
           }
         }
       } else if (phase === "hold") {
-        // animate ellipsis: . -> .. -> ... -> (blank) -> . -> .. -> ...
+        // animate ellipsis
         if (dots && ellipsis && ts - ellipsisLastTick >= ellipsisIntervalMs) {
           ellipsisLastTick = ts;
-          ellipsisCount = (ellipsisCount + 1) % 4; // 0..3 cyclisch
-          dots.textContent = ellipsisCount === 0 ? "" : ".".repeat(ellipsisCount);
+          if (ellipsisIncludeBlank) {
+            // . -> .. -> ... -> (blank) -> repeat
+            ellipsisCount = (ellipsisCount + 1) % 4; // 0..3 cyclisch
+            dots.textContent = ellipsisCount === 0 ? "" : ".".repeat(ellipsisCount);
+          } else {
+            // . -> .. -> ... -> . -> .. -> ... (no blank)
+            ellipsisCount = ellipsisCount + 1;
+            if (ellipsisCount > 3) ellipsisCount = 1;
+            dots.textContent = ".".repeat(ellipsisCount);
+          }
         }
         if (ts >= holdUntil) {
           if (!loop) {
-            // stop animation, keep final state
-            return;
+            if (deleteAfterHold) {
+              phase = "deleting";
+              carry = 0;
+            } else {
+              // stop animation, keep final state and notify once
+              onHoldComplete?.();
+              return;
+            }
+          } else {
+            phase = "deleting";
+            carry = 0;
           }
-          phase = "deleting";
-          carry = 0;
         }
       } else {
         // deleting
@@ -113,6 +138,10 @@ export default function Typewriter({
           }
           if (dots) dots.textContent = "";
           if (charCount === 0) {
+            if (deleteAfterHold && !loop) {
+              onDeleteComplete?.();
+              return;
+            }
             // small idle, then restart typing
             phase = "typing";
             carry = 0;
@@ -134,7 +163,7 @@ export default function Typewriter({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [prefersReduced, text, ellipsis, typeRateProp, deleteRateProp, holdMsProp, ellipsisIntervalMsProp, loop]);
+  }, [prefersReduced, text, ellipsis, typeRateProp, deleteRateProp, holdMsProp, ellipsisIntervalMsProp, ellipsisIncludeBlank, loop, onHoldComplete, deleteAfterHold, onDeleteComplete, idleGapMsProp]);
 
   return (
     <h1 className={className} aria-label={text} style={{ position: "relative", display: "inline-block" }}>
