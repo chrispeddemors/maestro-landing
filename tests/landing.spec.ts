@@ -1,13 +1,19 @@
 import { test, expect } from "@playwright/test";
 
-test("chip hero renders with glow background", async ({ page }) => {
+test("hero, typewriters en scroll secties renderen", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.getByText("Coming soon").first()).toBeVisible();
-  await expect(page.getByText("Maestro").first()).toBeVisible();
-  await expect(page.getByText("AI Solutions").first()).toBeVisible();
+  // Hero
+  await expect(page.getByText("Maestro AI").first()).toBeVisible();
+  await expect(page.getByText("Compose · Orchestrate · Automate").first()).toBeVisible();
 
-  // No CTAs
-  const mailto = page.locator("a[href^=mailto]");
-  await expect(mailto).toHaveCount(0);
+  // Compose typewriter
+  await expect(page.getByText("Compose...").first()).toBeVisible();
+
+  // Orchestrate/Automate koppen
+  await expect(page.getByText("Orchestrate").first()).toBeVisible();
+  await expect(page.getByText("Automate").first()).toBeVisible();
+
+  // Footer typewriter
+  await expect(page.getByText("More to come...").first()).toBeVisible();
 }); 

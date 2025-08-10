@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root { --background: #0a0d10; --foreground: #e6f0f3; --x: 50vw; --y: 50vh; --r: clamp(420px, 45vw, 1100px); }
+:root { --background: #0a0d10; --foreground: #e6f0f3; --x: 50vw; --y: 50vh; --r: clamp(420px, 45vw, 1100px); --accent: #38f29a; }
 @theme inline { --color-background: var(--background); --color-foreground: var(--foreground); }
 html, body, #__next { height: 100%; }
 body {
@@ -41,10 +41,43 @@ body::after { content: none; }
 @keyframes tw-blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
 .tw-cursor::after { content: "|"; display: inline-block; margin-left: 0.14em; color: currentColor; opacity: .9; animation: tw-blink 1s steps(1) infinite; }
 
+/* Accent helpers */
+.text-accent { color: var(--accent); }
+.stroke-accent { stroke: var(--accent); }
+.fill-accent { fill: var(--accent); }
+
+/* Luxury headline letter-spacing inhale–exhale */
+@keyframes luxuryBreathe {
+  0% { letter-spacing: 0.02em; opacity: 0; transform: translateY(6px); }
+  35% { letter-spacing: 0.08em; opacity: 1; transform: translateY(0); }
+  100% { letter-spacing: 0.03em; opacity: 1; transform: translateY(0); }
+}
+.luxury-breathe { animation: luxuryBreathe 1600ms ease-out both; }
+
+/* Subtle glow pulse for schematic */
+@keyframes greenGlowPulse {
+  0% { opacity: 0.10; }
+  50% { opacity: 0.22; }
+  100% { opacity: 0.10; }
+}
+.green-glow { filter: blur(10px); opacity: 0.14; animation: greenGlowPulse 4200ms ease-in-out infinite; }
+
+/* Baton sweep shimmer (used as overlay) */
+@keyframes shimmer {
+  0% { stroke-dashoffset: 1000; opacity: 0.0; }
+  10% { opacity: 0.5; }
+  60% { opacity: 0.35; }
+  100% { stroke-dashoffset: 0; opacity: 0.0; }
+}
+.stroke-shimmer { stroke: #a2ffd3; stroke-linecap: round; stroke-width: 2; stroke-dasharray: 6 10; animation: shimmer 2200ms ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .animate-logo-float{ animation: none; }
   .chip-outline{ animation: none; }
   .chip-pulse::after{ animation: none; }
   .chip-pulse{ transform: none !important; }
   .tw-cursor::after{ animation: none; }
+  .luxury-breathe { animation: none; }
+  .green-glow { animation: none; }
+  .stroke-shimmer { animation: none; }
 }

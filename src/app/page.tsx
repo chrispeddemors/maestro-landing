@@ -1,5 +1,9 @@
-import Typewriter from "@/components/Typewriter";
+"use client";
+
+import { } from "react";
+import { motion } from "framer-motion";
 import VantaNetBG from "@/components/VantaNetBG";
+import Typewriter from "@/components/Typewriter";
 import logo3 from "@/img/3.svg";
 
 function getAssetUrl(mod: unknown): string {
@@ -32,25 +36,79 @@ export default function Home() {
   return (
     <>
       <VantaNetBG />
-      <main className="grid min-h-screen place-items-center text-white pt-16 md:pt-20">
-        <div className="flex flex-col items-center gap-8 md:gap-10">
-          <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
-            <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
-            <div className="text-center md:text-left">
-              <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95]">
-                Maestro AI
-              </div>
-              <div className="mt-2 text-[clamp(16px,2.8vw,26px)] font-medium text-white/85">
-                Compose · Orchestrate · Automate
+
+      <main className="relative text-white h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-contain">
+        {/* HERO met logo */}
+        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+          <div className="flex flex-col items-center gap-8 md:gap-10">
+            <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
+              <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
+              <div className="text-center md:text-left">
+                <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95]">
+                  Maestro AI
+                </div>
+                {/* Typewriter op subtitel */}
+                <Typewriter
+                  text="Compose · Orchestrate · Automate"
+                  className="mt-2 text-[clamp(16px,2.8vw,26px)] font-medium text-white/85"
+                />
               </div>
             </div>
           </div>
+        </section>
 
-          <Typewriter
-            text="Coming soon"
-            className="mt-2 text-[clamp(30px,5.4vw,66px)] font-extrabold tracking-tight text-white"
-          />
-        </div>
+        {/* Section 1: COMPOSE */}
+        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+          <div className="max-w-5xl text-center">
+            <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Compose</motion.h2>
+            <motion.p
+              className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              We craft the perfect score of AI agents, workflows, and logic—tailored to your business.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Section 2: ORCHESTRATE */}
+        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+          <div className="max-w-5xl text-center">
+            <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Orchestrate</motion.h2>
+            <motion.p
+              className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              We conduct every element in flawless harmony, ensuring each part plays at the right moment.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Section 3: AUTOMATE */}
+        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+          <div className="max-w-5xl text-center">
+            <motion.h2 className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight luxury-breathe">Automate</motion.h2>
+            <motion.p
+              className="mt-4 text-[clamp(16px,2.4vw,26px)] text-white/85"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              We set the performance on autopilot—delivering results without missing a beat.
+            </motion.p>
+          </div>
+        </section>
+
+        {/* Footer typewriter sectie */}
+        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+          <Typewriter text="More to come..." className="text-[clamp(30px,5.4vw,66px)] font-extrabold tracking-tight text-white" />
+        </section>
       </main>
     </>
   );
