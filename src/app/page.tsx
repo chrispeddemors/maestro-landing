@@ -162,7 +162,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              Something intelligent is in the making.
+              Something Intelligent Is In The Making.
             </motion.p>
             <motion.div
               className="mt-4 grid place-items-center"
@@ -173,7 +173,7 @@ export default function Home() {
               {/* reserve ruimte om layout shift te voorkomen */}
               <div className="min-h-[1.6em] leading-tight">
                 <Typewriter
-                  text="More coming soon..."
+                  text="Coming Soon..."
                   className="text-[clamp(18px,3.2vw,36px)] font-normal text-[#d1d5db]"
                   ellipsis={false}
                   typeRate={11.11}
