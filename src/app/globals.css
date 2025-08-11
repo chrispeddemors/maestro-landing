@@ -114,9 +114,6 @@ body::after { content: none; }
 .automate-bg { filter: none !important; }
 
 /* Specifiek voor Samsung Internet: zet blend/filters terug naar normaal voor achtergronden */
-@supports (-webkit-appearance: none) {
-  .automate-bg { mix-blend-mode: normal !important; filter: none !important; }
-}
 
 /* Soft blur for section backgrounds */
 .section-bg-blur { filter: blur(4px) saturate(0.98); }
@@ -226,19 +223,6 @@ body::after { content: none; }
 }
 
 /* Specifieke, kleur-neutrale blur voor automate */
-.automate-blur { filter: blur(4px) saturate(1); }
-@media (max-width: 768px) { .automate-blur { filter: blur(3px) saturate(1); } }
-@media (max-width: 480px) { .automate-blur { filter: blur(2.6px) saturate(1); } }
+/* verwijderd */
 
-/* Specifiek voor Samsung Internet: forceer normale blending en behoud blur */
-@supports (-webkit-appearance: none) {
-  .automate-bg { mix-blend-mode: normal !important; }
-}
-
-/* Interne laag voor Automate blur; geen tint of backdrop */
-/* verwijderd: we gebruiken weer section-bg-blur op de container */
-
-/* Samsung Internet: forceer normale compositing voor automate container en laat blur ongemoeid */
-@supports (-webkit-appearance: none) {
-  .automate-bg { background: transparent !important; mix-blend-mode: normal !important; filter: none !important; }
-}
+/* Specifiek voor Samsung Internet: forceer normale compositing voor automate container en laat blur ongemoeid */
