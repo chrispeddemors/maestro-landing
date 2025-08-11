@@ -118,8 +118,6 @@ body::after { content: none; }
   .automate-bg { mix-blend-mode: normal !important; filter: none !important; }
 }
 
-
-
 /* Soft blur for section backgrounds */
 .section-bg-blur { filter: blur(4px) saturate(0.98); }
 @media (max-width: 768px) { .section-bg-blur { filter: blur(3px) saturate(1.02); } }
@@ -217,4 +215,14 @@ body::after { content: none; }
 }
 @media (max-width: 480px) {
   .logo-glyph { filter: invert(1) brightness(1.32) contrast(1.18); }
+}
+
+/* Specifieke, kleur-neutrale blur voor automate */
+.automate-blur { filter: blur(4px) saturate(1); }
+@media (max-width: 768px) { .automate-blur { filter: blur(3px) saturate(1); } }
+@media (max-width: 480px) { .automate-blur { filter: blur(2.6px) saturate(1); } }
+
+/* Specifiek voor Samsung Internet: forceer normale blending en behoud blur */
+@supports (-webkit-appearance: none) {
+  .automate-bg { mix-blend-mode: normal !important; }
 }
