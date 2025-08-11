@@ -226,3 +226,13 @@ body::after { content: none; }
 @supports (-webkit-appearance: none) {
   .automate-bg { mix-blend-mode: normal !important; }
 }
+
+/* Interne laag voor Automate blur; geen tint of backdrop */
+.automate-layer { filter: blur(4px); }
+@media (max-width: 768px) { .automate-layer { filter: blur(3px); } }
+@media (max-width: 480px) { .automate-layer { filter: blur(2.6px); } }
+
+/* Samsung Internet: forceer normale compositing, vermijd backdrop; blur blijft op child */
+@supports (-webkit-appearance: none) {
+  .automate-bg { background: transparent !important; mix-blend-mode: normal !important; }
+}
