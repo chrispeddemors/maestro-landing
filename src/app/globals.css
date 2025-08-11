@@ -110,8 +110,6 @@ body::after { content: none; }
 @media (max-width: 768px) { .automate-bg { transform: scale(2.2) translate(-11%, -5%); } }
 @media (max-width: 480px) { .automate-bg { transform: scale(2.7) translate(-12%, -7%); } }
 
-/* Zorg dat automate-bg nooit extra blur krijgt */
-.automate-bg { filter: none !important; }
 
 /* Specifiek voor Samsung Internet: zet blend/filters terug naar normaal voor achtergronden */
 

@@ -176,15 +176,7 @@ export default function Home() {
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] md:opacity-[0.14] automate-bg section-bg-blur">
             <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop={!prefersReduced} autoplay className="w-full h-full" />
-            <div
-              className="bg-glow-overlay hidden md:block"
-              style={{
-                "--glow-dur": "26s",
-                "--glow-delay": "11s",
-              } as CSSProperties as unknown as Record<string, string>}
-            >
-              <span />
-            </div>
+            {/* bg-glow overlay uit voor Automate om grijze haze te voorkomen */}
             {/* Fireworks-like multi-colored bulbs */}
             <div className="automate-fireworks">
               <span className="dot" style={{ left: "8%", top: "22%", "--fw-delay": "0s", "--fw-dur": "20s", "--x": "0px", "--y": "0px", "--fw-color": "rgba(56,242,154,0.18)" } as unknown as Record<string, string>} />
