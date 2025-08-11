@@ -98,17 +98,22 @@ body::after { content: none; }
 
 /* Responsive tuning for full-bleed Lottie backgrounds */
 .compose-bg { transform: scale(2.8) translate(-12%, -3%); transform-origin: center; will-change: transform; }
-@media (max-width: 768px) { .compose-bg { transform: scale(4.0) translate(-12%, -4%); } }
-@media (max-width: 480px) { .compose-bg { transform: scale(4.7) translate(-14%, -6%); } }
+@media (max-width: 768px) { .compose-bg { transform: scale(4.1) translate(-10%, -5%); } }
+@media (max-width: 480px) { .compose-bg { transform: scale(4.8) translate(-11%, -7%); } }
 
 .orchestrate-bg { transform: scale(2.4) translate(-8%, -3%); transform-origin: center; will-change: transform; }
-@media (max-width: 768px) { .orchestrate-bg { transform: scale(3.4) translate(-10%, -4%); } }
-@media (max-width: 480px) { .orchestrate-bg { transform: scale(4.2) translate(-12%, -6%); } }
+@media (max-width: 768px) { .orchestrate-bg { transform: scale(3.5) translate(-9%, -5%); } }
+@media (max-width: 480px) { .orchestrate-bg { transform: scale(4.3) translate(-10%, -7%); } }
+
+/* Automate background responsive scaling */
+.automate-bg { transform: scale(1.5) translate(-10%, -2%); transform-origin: center; will-change: transform; }
+@media (max-width: 768px) { .automate-bg { transform: scale(2.2) translate(-11%, -5%); } }
+@media (max-width: 480px) { .automate-bg { transform: scale(2.7) translate(-12%, -7%); } }
 
 /* Soft blur for section backgrounds */
 .section-bg-blur { filter: blur(4px) saturate(0.98); }
-@media (max-width: 768px) { .section-bg-blur { filter: blur(3px) saturate(1.05); } }
-@media (max-width: 480px) { .section-bg-blur { filter: blur(2.6px) saturate(1.08); } }
+@media (max-width: 768px) { .section-bg-blur { filter: blur(3px) saturate(1.02); } }
+@media (max-width: 480px) { .section-bg-blur { filter: blur(2.4px) saturate(1.04); } }
 
 /* Occasional subtle color glow overlay for section backgrounds */
 @keyframes bgGlowPulse {
@@ -183,16 +188,24 @@ body::after { content: none; }
 .automate-fireworks .dot.small { width: 24vmin; height: 24vmin; }
 .automate-fireworks .dot.large { width: 40vmin; height: 40vmin; }
 
+/* Verberg fireworks overlay op kleine schermen om grijze waas te vermijden */
+@media (max-width: 768px) {
+  .automate-fireworks { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .automate-fireworks .dot { animation: none; opacity: 0.08; }
 }
 
 /* Forceer witte logo-glyph ook bij browser 'auto dark' filters */
-.logo-glyph { filter: brightness(1.15) contrast(1.05); }
+.logo-glyph { background-color: #ffffff !important; mix-blend-mode: normal; isolation: isolate; filter: brightness(1.28) contrast(1.12) saturate(1.04); }
 @media (prefers-color-scheme: dark) {
-  .logo-glyph { filter: brightness(1.25) contrast(1.1); }
+  .logo-glyph { filter: brightness(1.48) contrast(1.20) saturate(1.05); }
 }
 /* Samsung Internet 'auto dark' vermindert soms contrast; compenseer op kleine schermen */
+@media (max-width: 768px) {
+  .logo-glyph { filter: brightness(1.60) contrast(1.22) saturate(1.06); }
+}
 @media (max-width: 480px) {
-  .logo-glyph { filter: brightness(1.32) contrast(1.12); }
+  .logo-glyph { filter: brightness(1.70) contrast(1.25) saturate(1.06); }
 }

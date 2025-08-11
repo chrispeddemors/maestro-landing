@@ -91,7 +91,7 @@ export default function Home() {
             <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18] md:opacity-[0.16] compose-bg section-bg-blur">
               <Lottie lottieRef={composeRef} animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
               <div
-                className="bg-glow-overlay"
+                className="bg-glow-overlay hidden md:block"
                 style={{
                   "--glow-dur": "22s",
                   "--glow-delay": "3s",
@@ -139,7 +139,7 @@ export default function Home() {
             <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] md:opacity-[0.14] orchestrate-bg section-bg-blur">
               <Lottie lottieRef={orchestrateRef} animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
               <div
-                className="bg-glow-overlay"
+                className="bg-glow-overlay hidden md:block"
                 style={{
                   "--glow-dur": "24s",
                   "--glow-delay": "7s",
@@ -184,10 +184,10 @@ export default function Home() {
         {/* Section 3: AUTOMATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
           {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.08] md:opacity-[0.14] section-bg-blur" style={{ transform: "scale(1.5) translate(-10%, -2%)", transformOrigin: "center", willChange: "transform" }}>
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.08] md:opacity-[0.12] automate-bg section-bg-blur">
               <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop autoplay className="w-full h-full" />
               <div
-                className="bg-glow-overlay"
+                className="bg-glow-overlay hidden md:block"
                 style={{
                   "--glow-dur": "26s",
                   "--glow-delay": "11s",
