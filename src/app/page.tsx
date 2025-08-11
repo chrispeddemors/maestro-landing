@@ -70,7 +70,7 @@ export default function Home() {
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
           <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[30%] md:translate-y-0" style={{ opacity: bgReady ? 1 : 0, transition: "opacity 240ms ease-out" }}>
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
-              <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
+              <LogoGlyph className="logo-glyph h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
               <div className="text-center md:text-left">
                 <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95]">
                   Maestro AI

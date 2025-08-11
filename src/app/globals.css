@@ -186,3 +186,13 @@ body::after { content: none; }
 @media (prefers-reduced-motion: reduce) {
   .automate-fireworks .dot { animation: none; opacity: 0.08; }
 }
+
+/* Forceer witte logo-glyph ook bij browser 'auto dark' filters */
+.logo-glyph { filter: brightness(1.15) contrast(1.05); }
+@media (prefers-color-scheme: dark) {
+  .logo-glyph { filter: brightness(1.25) contrast(1.1); }
+}
+/* Samsung Internet 'auto dark' vermindert soms contrast; compenseer op kleine schermen */
+@media (max-width: 480px) {
+  .logo-glyph { filter: brightness(1.32) contrast(1.12); }
+}
