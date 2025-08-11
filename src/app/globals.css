@@ -198,14 +198,13 @@ body::after { content: none; }
 }
 
 /* Forceer witte logo-glyph ook bij browser 'auto dark' filters */
-.logo-glyph { background-color: #ffffff !important; mix-blend-mode: normal; isolation: isolate; filter: brightness(1.28) contrast(1.12) saturate(1.04); }
+.logo-glyph { filter: invert(1) brightness(1.05) contrast(1.05); mix-blend-mode: normal; isolation: isolate; }
 @media (prefers-color-scheme: dark) {
-  .logo-glyph { filter: brightness(1.48) contrast(1.20) saturate(1.05); }
+  .logo-glyph { filter: invert(1) brightness(1.15) contrast(1.12) saturate(1.02); }
 }
-/* Samsung Internet 'auto dark' vermindert soms contrast; compenseer op kleine schermen */
 @media (max-width: 768px) {
-  .logo-glyph { filter: brightness(1.60) contrast(1.22) saturate(1.06); }
+  .logo-glyph { filter: invert(1) brightness(1.25) contrast(1.16); }
 }
 @media (max-width: 480px) {
-  .logo-glyph { filter: brightness(1.70) contrast(1.25) saturate(1.06); }
+  .logo-glyph { filter: invert(1) brightness(1.32) contrast(1.18); }
 }
