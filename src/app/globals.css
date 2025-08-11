@@ -228,11 +228,9 @@ body::after { content: none; }
 }
 
 /* Interne laag voor Automate blur; geen tint of backdrop */
-.automate-layer { filter: blur(4px); }
-@media (max-width: 768px) { .automate-layer { filter: blur(3px); } }
-@media (max-width: 480px) { .automate-layer { filter: blur(2.6px); } }
+/* verwijderd: we gebruiken weer section-bg-blur op de container */
 
-/* Samsung Internet: forceer normale compositing, vermijd backdrop; blur blijft op child */
+/* Samsung Internet: forceer normale compositing voor automate container en laat blur ongemoeid */
 @supports (-webkit-appearance: none) {
-  .automate-bg { background: transparent !important; mix-blend-mode: normal !important; }
+  .automate-bg { background: transparent !important; mix-blend-mode: normal !important; filter: none !important; }
 }
