@@ -21,21 +21,12 @@ function getAssetUrl(mod: unknown): string {
 function LogoGlyph({ className = "" }: { className?: string }) {
   const url = getAssetUrl(logo3);
   return (
-    <div
+    <img
       aria-hidden
-      className={className}
-      style={{
-        aspectRatio: "1 / 1",
-        WebkitMaskImage: `url(${url})`,
-        maskImage: `url(${url})`,
-        WebkitMaskRepeat: "no-repeat",
-        maskRepeat: "no-repeat",
-        WebkitMaskPosition: "center",
-        maskPosition: "center",
-        WebkitMaskSize: "contain",
-        maskSize: "contain",
-        backgroundColor: "#ffffff",
-      }}
+      src={url}
+      alt=""
+      className={className + " logo-glyph"}
+      style={{ display: "block" }}
     />
   );
 }
@@ -52,9 +43,14 @@ export default function Home() {
   const orchestrateRef = useRef<LottieRefCurrentProps | null>(null);
 
   useEffect(() => {
-    if (prefersReduced) return;
-    // Apply extra slowdowns: #1 and #2 an additional 50%, #3 an additional 30%
-    // Previous: compose 0.6x, orchestrate 0.8x, automate 0.5x
+    if (prefersReduced) {
+      // Toon still frame zonder animatie
+      composeRef.current?.goToAndStop?.(1, true);
+      orchestrateRef.current?.goToAndStop?.(1, true);
+      automateRef.current?.goToAndStop?.(1, true);
+      return;
+    }
+    // Normale (vertraagde) animatiesnelheden
     composeRef.current?.setSpeed?.(0.6 * 0.5);      // -> 0.30x
     orchestrateRef.current?.setSpeed?.(0.8 * 0.5);  // -> 0.40x
     automateRef.current?.setSpeed?.(0.5 * 0.7);     // -> 0.35x
@@ -70,7 +66,7 @@ export default function Home() {
         <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
           <div className="flex flex-col items-center gap-8 md:gap-10 -translate-y-[30%] md:translate-y-0" style={{ opacity: bgReady ? 1 : 0, transition: "opacity 240ms ease-out" }}>
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
-              <LogoGlyph className="logo-glyph h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
+              <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
               <div className="text-center md:text-left">
                 <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95]">
                   Maestro AI
@@ -86,21 +82,18 @@ export default function Home() {
 
         {/* Section 1: COMPOSE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
-          {/* Grote Lottie als achtergrond */}
-          {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18] md:opacity-[0.16] compose-bg section-bg-blur">
-              <Lottie lottieRef={composeRef} animationData={composeBg as unknown as object} loop autoplay className="w-full h-full" />
-              <div
-                className="bg-glow-overlay hidden md:block"
-                style={{
-                  "--glow-dur": "22s",
-                  "--glow-delay": "3s",
-                } as CSSProperties as unknown as Record<string, string>}
-              >
-                <span />
-              </div>
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18] md:opacity-[0.16] compose-bg section-bg-blur">
+            <Lottie lottieRef={composeRef} animationData={composeBg as unknown as object} loop={!prefersReduced} autoplay className="w-full h-full" />
+            <div
+              className="bg-glow-overlay hidden md:block"
+              style={{
+                "--glow-dur": "22s",
+                "--glow-delay": "3s",
+              } as CSSProperties as unknown as Record<string, string>}
+            >
+              <span />
             </div>
-          )}
+          </div>
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
               className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
@@ -135,20 +128,18 @@ export default function Home() {
 
         {/* Section 2: ORCHESTRATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
-          {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] md:opacity-[0.14] orchestrate-bg section-bg-blur">
-              <Lottie lottieRef={orchestrateRef} animationData={orchestrateBg as unknown as object} loop autoplay className="w-full h-full" />
-              <div
-                className="bg-glow-overlay hidden md:block"
-                style={{
-                  "--glow-dur": "24s",
-                  "--glow-delay": "7s",
-                } as CSSProperties as unknown as Record<string, string>}
-              >
-                <span />
-              </div>
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] md:opacity-[0.14] orchestrate-bg section-bg-blur">
+            <Lottie lottieRef={orchestrateRef} animationData={orchestrateBg as unknown as object} loop={!prefersReduced} autoplay className="w-full h-full" />
+            <div
+              className="bg-glow-overlay hidden md:block"
+              style={{
+                "--glow-dur": "24s",
+                "--glow-delay": "7s",
+              } as CSSProperties as unknown as Record<string, string>}
+            >
+              <span />
             </div>
-          )}
+          </div>
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
               className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
@@ -183,28 +174,18 @@ export default function Home() {
 
         {/* Section 3: AUTOMATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
-          {!prefersReduced && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.08] md:opacity-[0.12] automate-bg section-bg-blur">
-              <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop autoplay className="w-full h-full" />
-              <div
-                className="bg-glow-overlay hidden md:block"
-                style={{
-                  "--glow-dur": "26s",
-                  "--glow-delay": "11s",
-                } as CSSProperties as unknown as Record<string, string>}
-              >
-                <span />
-              </div>
-              {/* Fireworks-like multi-colored bulbs */}
-              <div className="automate-fireworks">
-                <span className="dot" style={{ left: "8%", top: "22%", "--fw-delay": "0s", "--fw-dur": "20s", "--x": "0px", "--y": "0px", "--fw-color": "rgba(56,242,154,0.18)" } as unknown as Record<string, string>} />
-                <span className="dot small" style={{ right: "12%", top: "14%", "--fw-delay": "4s", "--fw-dur": "22s", "--x": "-20px", "--y": "10px", "--fw-color": "rgba(59,130,246,0.18)" } as unknown as Record<string, string>} />
-                <span className="dot large" style={{ left: "26%", bottom: "12%", "--fw-delay": "9s", "--fw-dur": "24s", "--x": "15px", "--y": "-10px", "--fw-color": "rgba(244,63,94,0.18)" } as unknown as Record<string, string>} />
-                <span className="dot" style={{ left: "60%", top: "28%", "--fw-delay": "13s", "--fw-dur": "21s", "--x": "-10px", "--y": "-6px", "--fw-color": "rgba(250,204,21,0.18)" } as unknown as Record<string, string>} />
-                <span className="dot small" style={{ right: "26%", bottom: "18%", "--fw-delay": "16s", "--fw-dur": "19s", "--x": "6px", "--y": "-8px", "--fw-color": "rgba(147,51,234,0.18)" } as unknown as Record<string, string>} />
-              </div>
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16] md:opacity-[0.14] automate-bg section-bg-blur">
+            <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop={!prefersReduced} autoplay className="w-full h-full" />
+            {/* bg-glow overlay uit voor Automate om grijze haze te voorkomen */}
+            {/* Fireworks-like multi-colored bulbs */}
+            <div className="automate-fireworks">
+              <span className="dot" style={{ left: "8%", top: "22%", "--fw-delay": "0s", "--fw-dur": "20s", "--x": "0px", "--y": "0px", "--fw-color": "rgba(56,242,154,0.18)" } as unknown as Record<string, string>} />
+              <span className="dot small" style={{ right: "12%", top: "14%", "--fw-delay": "4s", "--fw-dur": "22s", "--x": "-20px", "--y": "10px", "--fw-color": "rgba(59,130,246,0.18)" } as unknown as Record<string, string>} />
+              <span className="dot large" style={{ left: "26%", bottom: "12%", "--fw-delay": "9s", "--fw-dur": "24s", "--x": "15px", "--y": "-10px", "--fw-color": "rgba(244,63,94,0.18)" } as unknown as Record<string, string>} />
+              <span className="dot" style={{ left: "60%", top: "28%", "--fw-delay": "13s", "--fw-dur": "21s", "--x": "-10px", "--y": "-6px", "--fw-color": "rgba(250,204,21,0.18)" } as unknown as Record<string, string>} />
+              <span className="dot small" style={{ right: "26%", bottom: "18%", "--fw-delay": "16s", "--fw-dur": "19s", "--x": "6px", "--y": "-8px", "--fw-color": "rgba(147,51,234,0.18)" } as unknown as Record<string, string>} />
             </div>
-          )}
+          </div>
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
               className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
@@ -258,11 +239,11 @@ export default function Home() {
               <div className="min-h-[1.6em] leading-tight">
                 <Typewriter
                   text="Coming Soon"
-                  className="text-[clamp(18px,3.2vw,36px)] font-normal text-[#d1d5db]"
+                  className="inline"
                   ellipsis={true}
                   ellipsisIncludeBlank={false}
                   ellipsisIntervalMs={720}
-                  typeRate={14}
+                  typeRate={16}
                   deleteRate={27}
                   holdMs={Infinity}
                   loop={false}

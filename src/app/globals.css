@@ -70,7 +70,7 @@ body::after { content: none; }
   90% { text-shadow: 0 0 12px rgba(56,242,154,0.22), 0 0 24px rgba(56,242,154,0.12); }
   100% { text-shadow: none; }
 }
-.title-glow { animation: titleGlowPulse var(--title-glow-period, 14s) ease-in-out infinite; }
+.title-glow { animation: none; text-shadow: none; }
 
 /* Baton sweep shimmer (used as overlay) */
 @keyframes shimmer {
@@ -110,10 +110,21 @@ body::after { content: none; }
 @media (max-width: 768px) { .automate-bg { transform: scale(2.2) translate(-11%, -5%); } }
 @media (max-width: 480px) { .automate-bg { transform: scale(2.7) translate(-12%, -7%); } }
 
+
+/* Specifiek voor Samsung Internet: zet blend/filters terug naar normaal voor achtergronden */
+
 /* Soft blur for section backgrounds */
-.section-bg-blur { filter: blur(4px) saturate(0.98); }
-@media (max-width: 768px) { .section-bg-blur { filter: blur(3px) saturate(1.02); } }
-@media (max-width: 480px) { .section-bg-blur { filter: blur(2.4px) saturate(1.04); } }
+.section-bg-blur { filter: blur(1.6px) saturate(0.98); }
+@media (max-width: 768px) { .section-bg-blur { filter: blur(1.2px) saturate(1.02); } }
+@media (max-width: 480px) { .section-bg-blur { filter: blur(0.96px) saturate(1.04); } }
+
+/* Automate: iets hogere saturatie bij dezelfde blur om “grijze waas” te voorkomen */
+.automate-bg.section-bg-blur { filter: blur(1.6px) saturate(1.06); }
+@media (max-width: 768px) { .automate-bg.section-bg-blur { filter: blur(1.2px) saturate(1.08); } }
+@media (max-width: 480px) { .automate-bg.section-bg-blur { filter: blur(0.96px) saturate(1.10); } }
+
+/* Automate fireworks: volledig uitschakelen (mix-blend-mode kan haze veroorzaken in Samsung Internet) */
+.automate-fireworks { display: none !important; }
 
 /* Occasional subtle color glow overlay for section backgrounds */
 @keyframes bgGlowPulse {
@@ -198,14 +209,18 @@ body::after { content: none; }
 }
 
 /* Forceer witte logo-glyph ook bij browser 'auto dark' filters */
-.logo-glyph { background-color: #ffffff !important; mix-blend-mode: normal; isolation: isolate; filter: brightness(1.28) contrast(1.12) saturate(1.04); }
+.logo-glyph { filter: invert(1) brightness(1.05) contrast(1.05); mix-blend-mode: normal; isolation: isolate; }
 @media (prefers-color-scheme: dark) {
-  .logo-glyph { filter: brightness(1.48) contrast(1.20) saturate(1.05); }
+  .logo-glyph { filter: invert(1) brightness(1.15) contrast(1.12) saturate(1.02); }
 }
-/* Samsung Internet 'auto dark' vermindert soms contrast; compenseer op kleine schermen */
 @media (max-width: 768px) {
-  .logo-glyph { filter: brightness(1.60) contrast(1.22) saturate(1.06); }
+  .logo-glyph { filter: invert(1) brightness(1.25) contrast(1.16); }
 }
 @media (max-width: 480px) {
-  .logo-glyph { filter: brightness(1.70) contrast(1.25) saturate(1.06); }
+  .logo-glyph { filter: invert(1) brightness(1.32) contrast(1.18); }
 }
+
+/* Specifieke, kleur-neutrale blur voor automate */
+/* verwijderd */
+
+/* Specifiek voor Samsung Internet: forceer normale compositing voor automate container en laat blur ongemoeid */
