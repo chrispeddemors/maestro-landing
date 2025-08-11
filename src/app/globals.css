@@ -114,14 +114,14 @@ body::after { content: none; }
 /* Specifiek voor Samsung Internet: zet blend/filters terug naar normaal voor achtergronden */
 
 /* Soft blur for section backgrounds */
-.section-bg-blur { filter: blur(2px) saturate(0.98); }
-@media (max-width: 768px) { .section-bg-blur { filter: blur(1.5px) saturate(1.02); } }
-@media (max-width: 480px) { .section-bg-blur { filter: blur(1.2px) saturate(1.04); } }
+.section-bg-blur { filter: blur(1.6px) saturate(0.98); }
+@media (max-width: 768px) { .section-bg-blur { filter: blur(1.2px) saturate(1.02); } }
+@media (max-width: 480px) { .section-bg-blur { filter: blur(0.96px) saturate(1.04); } }
 
 /* Automate: iets hogere saturatie bij dezelfde blur om “grijze waas” te voorkomen */
-.automate-bg.section-bg-blur { filter: blur(2px) saturate(1.06); }
-@media (max-width: 768px) { .automate-bg.section-bg-blur { filter: blur(1.5px) saturate(1.08); } }
-@media (max-width: 480px) { .automate-bg.section-bg-blur { filter: blur(1.2px) saturate(1.10); } }
+.automate-bg.section-bg-blur { filter: blur(1.6px) saturate(1.06); }
+@media (max-width: 768px) { .automate-bg.section-bg-blur { filter: blur(1.2px) saturate(1.08); } }
+@media (max-width: 480px) { .automate-bg.section-bg-blur { filter: blur(0.96px) saturate(1.10); } }
 
 /* Automate fireworks: volledig uitschakelen (mix-blend-mode kan haze veroorzaken in Samsung Internet) */
 .automate-fireworks { display: none !important; }
