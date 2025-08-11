@@ -106,14 +106,19 @@ body::after { content: none; }
 @media (max-width: 480px) { .orchestrate-bg { transform: scale(4.3) translate(-10%, -7%); } }
 
 /* Automate background responsive scaling */
-.automate-bg { transform: scale(1.5) translate(-10%, -2%); transform-origin: center; will-change: transform; filter: brightness(1.06) contrast(1.02); }
-@media (max-width: 768px) { .automate-bg { transform: scale(2.2) translate(-11%, -5%); filter: brightness(1.16) contrast(1.06); } }
-@media (max-width: 480px) { .automate-bg { transform: scale(2.7) translate(-12%, -7%); filter: brightness(1.22) contrast(1.08); } }
+.automate-bg { transform: scale(1.5) translate(-10%, -2%); transform-origin: center; will-change: transform; }
+@media (max-width: 768px) { .automate-bg { transform: scale(2.2) translate(-11%, -5%); } }
+@media (max-width: 480px) { .automate-bg { transform: scale(2.7) translate(-12%, -7%); } }
 
-/* Maak automate combinatie met blur iets lichter en minder blur voor betere leesbaarheid op mobiel */
-.automate-bg.section-bg-blur { filter: blur(3px) saturate(1.06) brightness(1.10); }
-@media (max-width: 768px) { .automate-bg.section-bg-blur { filter: blur(2.6px) saturate(1.10) brightness(1.16); } }
-@media (max-width: 480px) { .automate-bg.section-bg-blur { filter: blur(2.4px) saturate(1.12) brightness(1.20); } }
+/* Zorg dat automate-bg nooit extra blur krijgt */
+.automate-bg { filter: none !important; }
+
+/* Specifiek voor Samsung Internet: zet blend/filters terug naar normaal voor achtergronden */
+@supports (-webkit-appearance: none) {
+  .automate-bg { mix-blend-mode: normal !important; filter: none !important; }
+}
+
+
 
 /* Soft blur for section backgrounds */
 .section-bg-blur { filter: blur(4px) saturate(0.98); }

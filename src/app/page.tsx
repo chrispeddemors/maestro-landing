@@ -174,7 +174,7 @@ export default function Home() {
 
         {/* Section 3: AUTOMATE */}
         <section className="relative h-[100vh] grid place-items-center px-6 snap-center snap-always overflow-hidden">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18] md:opacity-[0.14] automate-bg section-bg-blur">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.18] md:opacity-[0.14] automate-bg">
             <Lottie lottieRef={automateRef} animationData={automateBg as unknown as object} loop={!prefersReduced} autoplay className="w-full h-full" />
             <div
               className="bg-glow-overlay hidden md:block"
