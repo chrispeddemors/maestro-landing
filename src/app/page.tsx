@@ -68,7 +68,7 @@ export default function Home() {
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
               <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
               <div className="text-center md:text-left">
-                <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95]">
+                <div className="text-[clamp(44px,6.8vw,100px)] max-[480px]:text-[clamp(36px,7.4vw,84px)] font-extrabold tracking-tight leading-[1.02] title-responsive">
                   Maestro AI
                 </div>
                 {/* Reservering om layout shift te voorkomen tijdens wegvegen */}
@@ -96,7 +96,7 @@ export default function Home() {
           </div>
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
-              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
+              className="text-[clamp(56px,8.2vw,120px)] max-[480px]:text-[clamp(38px,9.2vw,96px)] font-extrabold tracking-tight title-glow title-responsive"
               initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
               whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
               viewport={{ once: true, amount: 0.6 }}
@@ -142,7 +142,7 @@ export default function Home() {
           </div>
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
-              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
+              className="text-[clamp(56px,8.2vw,120px)] max-[480px]:text-[clamp(38px,9.2vw,96px)] font-extrabold tracking-tight title-glow title-responsive"
               initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
               whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
               viewport={{ once: true, amount: 0.6 }}
@@ -188,7 +188,7 @@ export default function Home() {
           </div>
           <div className="relative z-10 max-w-5xl text-center -translate-y-[30%] md:translate-y-0">
             <motion.h2
-              className="text-[clamp(56px,8.2vw,120px)] font-extrabold tracking-tight title-glow"
+              className="text-[clamp(56px,8.2vw,120px)] max-[480px]:text-[clamp(38px,9.2vw,96px)] font-extrabold tracking-tight title-glow title-responsive"
               initial={{ opacity: 0, y: 6, letterSpacing: "0.02em" }}
               whileInView={{ opacity: 1, y: 0, letterSpacing: "0.03em" }}
               viewport={{ once: false, amount: 0.6 }}
