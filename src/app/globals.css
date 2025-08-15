@@ -3,7 +3,6 @@
 :root { --background: #0a0d10; --foreground: #e6f0f3; --x: 50vw; --y: 50vh; --r: clamp(420px, 45vw, 1100px); --accent: #38f29a; }
 @theme inline { --color-background: var(--background); --color-foreground: var(--foreground); }
 html, body, #__next { height: 100%; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   /* Transparante basis, alleen subtiele glow-lagen */
   background:
@@ -63,18 +62,8 @@ body::after { content: none; }
 }
 .green-glow { filter: blur(10px); opacity: 0.14; animation: greenGlowPulse 4200ms ease-in-out infinite; }
 
-/* Title green glow pulse (appears after a wait, lasts a few seconds, then off) */
-@keyframes titleGlowPulse {
-  0%, 64% { text-shadow: none; }
-  70% { text-shadow: 0 0 10px rgba(56,242,154,0.22), 0 0 22px rgba(56,242,154,0.14); }
-  82% { text-shadow: 0 0 18px rgba(56,242,154,0.30), 0 0 40px rgba(56,242,154,0.18); }
-  90% { text-shadow: 0 0 12px rgba(56,242,154,0.22), 0 0 24px rgba(56,242,154,0.12); }
-  100% { text-shadow: none; }
-}
-.title-glow { animation: titleGlowPulse var(--title-glow-period, 14s) ease-in-out infinite; }
-
-/* Responsive title safety: wrapping/hyphenation to avoid clipping on small screens or enlarged text */
-.title-responsive { text-wrap: balance; overflow-wrap: anywhere; word-break: normal; hyphens: auto; -webkit-hyphens: auto; line-height: 1.1; }
+/* Title glow disabled */
+.title-glow { animation: none; text-shadow: none; }
 
 /* Baton sweep shimmer (used as overlay) */
 @keyframes shimmer {
@@ -97,7 +86,7 @@ body::after { content: none; }
   .luxury-breathe { animation: none; }
   .green-glow { animation: none; }
   .stroke-shimmer { animation: none; }
-  .title-glow { animation: none; }
+  .title-glow { animation: none; text-shadow: none; }
 }
 
 /* Responsive tuning for full-bleed Lottie backgrounds */
