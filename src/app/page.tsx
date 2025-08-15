@@ -64,7 +64,7 @@ export default function Home() {
       <main className="relative text-white h-screen overflow-hidden">
         {/* HERO met logo en Coming Soon */}
         <section className="h-[100vh] grid place-items-center px-6">
-          <div className="flex flex-col items-center gap-16 md:gap-20 -translate-y-[15%] md:translate-y-0" style={{ opacity: bgReady ? 1 : 0, transition: "opacity 240ms ease-out" }}>
+          <div className="flex flex-col items-center gap-16 md:gap-20 -translate-y-[35%] md:translate-y-0" style={{ opacity: bgReady ? 1 : 0, transition: "opacity 240ms ease-out" }}>
             {/* Logo en titel sectie */}
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
               <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
