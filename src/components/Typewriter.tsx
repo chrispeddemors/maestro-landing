@@ -178,8 +178,10 @@ export default function Typewriter({
   return (
     <h1 className={className} aria-label={texts[currentTextIndex]} style={{ position: "relative", display: "inline-block" }}>
       <span className="sr-only">{texts[currentTextIndex]}</span>
-      {/* Invisible placeholder reserves size to prevent layout shift */}
-      <span aria-hidden className="opacity-0 select-none pointer-events-none">{texts[currentTextIndex]}</span>
+      {/* Invisible placeholder reserves size to prevent layout shift - use longest text */}
+      <span aria-hidden className="opacity-0 select-none pointer-events-none">
+        {texts.reduce((longest, current) => current.length > longest.length ? current : longest, texts[0])}
+      </span>
       {/* Overlay actual typing on top of the placeholder */}
       <span aria-hidden style={{ position: "absolute", inset: 0, whiteSpace: "nowrap" }}>
         <span ref={textRef} />
