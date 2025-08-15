@@ -3,10 +3,10 @@
 import Typewriter from "./Typewriter";
 
 export default function HeroSubtitleSequence({ className = "" }: { className?: string }) {
-  const slogan = "Orchestrating Agentic AI Solutions";
+  const slogans = ["Orchestrating Agentic AI Solutions"];
   return (
     <Typewriter
-      text={slogan}
+      texts={slogans}
       className={className}
       ellipsis={true}
       ellipsisIncludeBlank={false}

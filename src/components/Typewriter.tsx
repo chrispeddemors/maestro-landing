@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type TypewriterProps = {
-  text: string;
+  texts: string[];
   className?: string;
   ellipsis?: boolean;
   typeRate?: number; // chars per second
@@ -19,7 +19,7 @@ type TypewriterProps = {
 };
 
 export default function Typewriter({
-  text,
+  texts,
   className,
   ellipsis = true,
   typeRate: typeRateProp = 14,
@@ -41,6 +41,7 @@ export default function Typewriter({
   const textRef = useRef<HTMLSpanElement | null>(null);
   const dotsRef = useRef<HTMLSpanElement | null>(null);
   const rafRef = useRef<number | null>(null);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   useEffect(() => {
     const node = textRef.current;
@@ -48,7 +49,7 @@ export default function Typewriter({
     if (!node) return;
 
     if (prefersReduced) {
-      node.textContent = text;
+      node.textContent = texts[currentTextIndex];
       if (dots) dots.textContent = "";
       return;
     }
@@ -69,6 +70,8 @@ export default function Typewriter({
     let ellipsisLastTick = 0;
     let ellipsisCount = ellipsisIncludeBlank ? 0 : 1; // start blank or with one dot
 
+    const currentText = texts[currentTextIndex];
+
     const step = (ts: number) => {
       const dt = Math.min(0.066, (ts - lastTs) / 1000);
       lastTs = ts;
@@ -78,12 +81,12 @@ export default function Typewriter({
         const inc = carry | 0;
         if (inc > 0) {
           carry -= inc;
-          const next = Math.min(text.length, charCount + inc);
+          const next = Math.min(currentText.length, charCount + inc);
           if (next !== charCount) {
             charCount = next;
-            node.textContent = text.slice(0, charCount);
+            node.textContent = currentText.slice(0, charCount);
           }
-          if (charCount === text.length) {
+          if (charCount === currentText.length) {
             phase = "hold";
             holdUntil = ts + holdMs;
             carry = 0;
@@ -138,7 +141,7 @@ export default function Typewriter({
           const next = Math.max(0, charCount - dec);
           if (next !== charCount) {
             charCount = next;
-            node.textContent = text.slice(0, charCount);
+            node.textContent = currentText.slice(0, charCount);
           }
           if (dots) dots.textContent = "";
           if (charCount === 0) {
@@ -146,10 +149,13 @@ export default function Typewriter({
               onDeleteComplete?.();
               return;
             }
-            // small idle, then restart typing
+            // small idle, then restart typing with next text
             phase = "typing";
             carry = 0;
             lastTs = ts + idleGapMs;
+            // Move to next text
+            setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+            return; // Restart the animation with new text
           }
         }
       }
@@ -167,13 +173,13 @@ export default function Typewriter({
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [prefersReduced, text, ellipsis, typeRateProp, deleteRateProp, holdMsProp, ellipsisIntervalMsProp, ellipsisIncludeBlank, loop, onHoldComplete, deleteAfterHold, onDeleteComplete, idleGapMsProp]);
+  }, [prefersReduced, texts, currentTextIndex, ellipsis, typeRateProp, deleteRateProp, holdMsProp, ellipsisIntervalMsProp, ellipsisIncludeBlank, loop, onHoldComplete, deleteAfterHold, onDeleteComplete, idleGapMsProp]);
 
   return (
-    <h1 className={className} aria-label={text} style={{ position: "relative", display: "inline-block" }}>
-      <span className="sr-only">{text}</span>
+    <h1 className={className} aria-label={texts[currentTextIndex]} style={{ position: "relative", display: "inline-block" }}>
+      <span className="sr-only">{texts[currentTextIndex]}</span>
       {/* Invisible placeholder reserves size to prevent layout shift */}
-      <span aria-hidden className="opacity-0 select-none pointer-events-none">{text}</span>
+      <span aria-hidden className="opacity-0 select-none pointer-events-none">{texts[currentTextIndex]}</span>
       {/* Overlay actual typing on top of the placeholder */}
       <span aria-hidden style={{ position: "absolute", inset: 0, whiteSpace: "nowrap" }}>
         <span ref={textRef} />

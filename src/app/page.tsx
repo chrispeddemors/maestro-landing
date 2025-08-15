@@ -81,7 +81,19 @@ export default function Home() {
                 >
                   <div className="min-h-[1.4em] leading-tight">
                     <Typewriter
-                      text="Orchestrating Agentic AI Solutions"
+                      texts={[
+                        "Orchestrating Agentic AI Solutions",
+                        "Make everything work together. Automatically",
+                        "Build once. Run 24/7. Stay private",
+                        "From inbox to invoice—handled",
+                        "Agents that actually do the work",
+                        "Privacy-first agentic automation",
+                        "Compose. Orchestrate. Automate",
+                        "Your AI workforce, conducted",
+                        "Orchestrated agents for real ops",
+                        "Agents that plug into your stack",
+                        "Define the plan. Ship the workflow. Run it"
+                      ]}
                       className="text-[clamp(16px,2.8vw,26px)] font-medium text-white/85"
                       ellipsis={true}
                       ellipsisIncludeBlank={false}
