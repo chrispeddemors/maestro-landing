@@ -68,7 +68,7 @@ export default function Home() {
             {/* Logo en titel sectie */}
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
               <LogoGlyph className="h-[clamp(140px,22vw,320px)] w-[clamp(140px,22vw,320px)]" />
-              <div className="text-center md:text-left">
+              <div className="text-center md:text-left w-full md:w-auto md:min-w-[400px]">
                 <div className="text-[clamp(44px,6.8vw,100px)] font-extrabold tracking-tight leading-[0.95] title-responsive">
                   Maestro AI
                 </div>
@@ -100,7 +100,7 @@ export default function Home() {
                       ellipsisIntervalMs={720}
                       typeRate={16}
                       deleteRate={27}
-                      holdMs={2000}
+                      holdMs={1500}
                       loop={true}
                     />
                   </div>
