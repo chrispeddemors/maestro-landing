@@ -61,9 +61,9 @@ export default function Home() {
       <VantaNetBG onReady={() => setBgReady(true)} />
       <ScrollChevron />
 
-      <main data-snap-container="true" className="relative text-white h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-contain">
+      <main className="relative text-white h-screen overflow-hidden">
         {/* HERO met logo en Coming Soon */}
-        <section className="h-[100vh] grid place-items-center px-6 snap-center snap-always">
+        <section className="h-[100vh] grid place-items-center px-6">
           <div className="flex flex-col items-center gap-16 md:gap-20 -translate-y-[15%] md:translate-y-0" style={{ opacity: bgReady ? 1 : 0, transition: "opacity 240ms ease-out" }}>
             {/* Logo en titel sectie */}
             <div className="flex flex-col items-center gap-6 md:gap-8 md:flex-row">
@@ -95,21 +95,38 @@ export default function Home() {
                 </motion.div>
               </div>
             </div>
-            
-            {/* Coming Soon sectie onderaan */}
-            <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 1.0, ease: "easeOut" }}
-            >
-              <div className="text-[clamp(20px,3.2vw,32px)] font-medium text-white/90">
-                Coming Soon
-              </div>
-            </motion.div>
           </div>
         </section>
       </main>
+
+      {/* Coming Soon footer - BEHOUDEN */}
+      <footer className="sticky bottom-0 z-10">
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        
+        {/* Bottom bar */}
+        <motion.div
+          className="backdrop-blur-sm bg-black/30 px-6 py-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+        >
+          <div className="mx-auto max-w-[1200px] flex items-center justify-center gap-3">
+            {/* Status dot */}
+            <motion.div
+              className="w-1.5 h-1.5 rounded-full bg-white/60 status-pulse"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.3, delay: 1.4 }}
+            />
+            
+            {/* Coming Soon text */}
+            <span className="text-[clamp(14px,1.6vw,18px)] font-medium text-white/90">
+              Coming Soon
+            </span>
+          </div>
+        </motion.div>
+      </footer>
     </>
   );
 }
