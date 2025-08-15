@@ -52,7 +52,6 @@ export default function Home() {
                     <Typewriter
                       texts={[
                         "Orchestrating Agentic AI Solutions",
-                        "Make everything work together. Automatically",
                         "Build once. Run 24/7. Stay private",
                         "From inbox to invoice—handled",
                         "Agents that actually do the work",
@@ -61,6 +60,7 @@ export default function Home() {
                         "Your AI workforce, conducted",
                         "Orchestrated agents for real ops",
                         "Agents that plug into your stack",
+                        "Make everything work together. Automatically",
                         "Define the plan. Ship the workflow. Run it"
                       ]}
                       className="text-[clamp(16px,2.8vw,26px)] font-medium text-white/85"
