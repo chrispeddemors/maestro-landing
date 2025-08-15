@@ -212,11 +212,11 @@ body::after { content: none; }
 
 /* Forceer witte logo-glyph ook bij browser 'auto dark' filters */
 .logo-glyph { 
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1) !important;
   mix-blend-mode: normal;
   isolation: isolate;
   -webkit-appearance: none;
-  -webkit-filter: brightness(0) invert(1);
+  -webkit-filter: brightness(0) invert(1) !important;
 }
 
 /* Samsung Internet specifieke fix voor donker thema */
@@ -225,6 +225,21 @@ body::after { content: none; }
     filter: brightness(0) invert(1) !important;
     -webkit-filter: brightness(0) invert(1) !important;
   }
+}
+
+/* Extra browser-specifieke fixes */
+@supports (-webkit-appearance: none) {
+  .logo-glyph {
+    filter: brightness(0) invert(1) !important;
+    -webkit-filter: brightness(0) invert(1) !important;
+  }
+}
+
+/* Forceer witte kleur voor alle browsers */
+.logo-glyph {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
 }
 
 /* Specifiek voor Samsung Internet: forceer normale compositing voor automate container en laat blur ongemoeid */
