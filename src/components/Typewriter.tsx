@@ -127,8 +127,8 @@ export default function Typewriter({
             // Na 3 cycli van puntjes, ga naar deleting
             const cyclesCompleted = Math.floor((ts - holdUntil) / (3 * ellipsisIntervalMs));
             if (cyclesCompleted >= 3) {
-              phase = "deleting";
-              carry = 0;
+            phase = "deleting";
+            carry = 0;
             }
           }
         }
