@@ -71,7 +71,7 @@ body::after { content: none; }
 
 /* Status dot pulse - BEHOUDEN */
 @keyframes statusPulse {
-  0%, 100% { opacity: 0.6; }
+  0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
 .status-pulse { animation: statusPulse 3s ease-in-out infinite; }

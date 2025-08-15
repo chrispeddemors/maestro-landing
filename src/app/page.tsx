@@ -114,7 +114,7 @@ export default function Home() {
           <div className="mx-auto max-w-[1200px] flex items-center justify-center gap-3">
             {/* Status dot */}
             <motion.div
-              className="w-1.5 h-1.5 rounded-full bg-white/60 status-pulse"
+              className="w-1.5 h-1.5 rounded-full bg-white/90 status-pulse"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.3, delay: 1.4 }}
