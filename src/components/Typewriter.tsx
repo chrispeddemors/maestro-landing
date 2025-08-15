@@ -121,8 +121,12 @@ export default function Typewriter({
               return;
             }
           } else {
-            phase = "deleting";
-            carry = 0;
+            // Na 3 cycli van puntjes, ga naar deleting
+            const cyclesCompleted = Math.floor((ts - holdUntil) / (3 * ellipsisIntervalMs));
+            if (cyclesCompleted >= 3) {
+              phase = "deleting";
+              carry = 0;
+            }
           }
         }
       } else {

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Maestro AI — Compose · Orchestrate · Automate",
-  description: "We design, orchestrate, and automate intelligent AI solutions.",
+  title: "Maestro AI — Orchestrating Agentic AI Solutions",
+  description: "We design, orchestrate, and automate intelligent AI solutions that work for you, 24/7.",
   metadataBase: new URL("https://maestro-ai.nl"),
   openGraph: {
-    title: "Maestro AI — Compose · Orchestrate · Automate",
-    description: "We design, orchestrate, and automate intelligent AI solutions.",
+    title: "Maestro AI — Orchestrating Agentic AI Solutions",
+    description: "We design, orchestrate, and automate intelligent AI solutions that work for you, 24/7.",
     url: "https://maestro-ai.nl",
     siteName: "Maestro AI",
     images: [
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         url: "https://maestro-ai.nl/og-maestro-v2.jpg",
         width: 1200,
         height: 630,
-        alt: "Maestro AI — Compose · Orchestrate · Automate",
+        alt: "Maestro AI — Orchestrating Agentic AI Solutions",
       },
     ],
     type: "website",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     images: ["https://maestro-ai.nl/og-maestro-v2.jpg"],
-    title: "Maestro AI — Compose · Orchestrate · Automate",
-    description: "We design, orchestrate, and automate intelligent AI solutions.",
+    title: "Maestro AI — Orchestrating Agentic AI Solutions",
+    description: "We design, orchestrate, and automate intelligent AI solutions that work for you, 24/7.",
   },
   other: {
     "color-scheme": "dark",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0b0f14",
+  themeColor: "#0a0d10",
   colorScheme: "dark" as const,
 };
 
